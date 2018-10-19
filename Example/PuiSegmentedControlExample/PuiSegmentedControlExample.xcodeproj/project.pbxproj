@@ -58,7 +58,7 @@
 		1D89D3CB217A79020099F68F = {
 			isa = PBXGroup;
 			children = (
-				1D89D3D6217A79020099F68F /* PuiSegmentedControlExample */,
+				1D89D3D6217A79020099F68F /* Source */,
 				1D89D3D5217A79020099F68F /* Products */,
 				1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */,
 				1D89D3F4217A7A900099F68F /* Frameworks */,
@@ -73,21 +73,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1D89D3D6217A79020099F68F /* PuiSegmentedControlExample */ = {
-			isa = PBXGroup;
-			children = (
-				1D89D3E9217A793E0099F68F /* Source */,
-				1D89D3EA217A79430099F68F /* Supporting Files */,
-			);
-			path = PuiSegmentedControlExample;
-			sourceTree = "<group>";
-		};
-		1D89D3E9217A793E0099F68F /* Source */ = {
+		1D89D3D6217A79020099F68F /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				1D89D3D7217A79020099F68F /* AppDelegate.swift */,
 				1D89D3DB217A79020099F68F /* Main.storyboard */,
 				1D89D3D9217A79020099F68F /* ViewController.swift */,
+				1D89D3EA217A79430099F68F /* Supporting Files */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -361,7 +353,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "PuiSegmentedControlExample/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "PuiSegmentedControlExample/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
