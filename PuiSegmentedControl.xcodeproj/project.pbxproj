@@ -10,6 +10,7 @@
 		1DDCB81A217A713C00FAF796 /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDCB810217A713C00FAF796 /* PuiSegmentedControl.framework */; };
 		1DDCB81F217A713C00FAF796 /* PuiSegmentedControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */; };
 		1DDCB821217A713C00FAF796 /* PuiSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DDCB813217A713C00FAF796 /* PuiSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DDCB82D217A722E00FAF796 /* PuiSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		1DDCB819217A713C00FAF796 /* PuiSegmentedControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuiSegmentedControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiSegmentedControlTests.swift; sourceTree = "<group>"; };
 		1DDCB820217A713C00FAF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +55,8 @@
 		1DDCB806217A713C00FAF796 = {
 			isa = PBXGroup;
 			children = (
-				1DDCB812217A713C00FAF796 /* PuiSegmentedControl */,
-				1DDCB81D217A713C00FAF796 /* PuiSegmentedControlTests */,
+				1DDCB812217A713C00FAF796 /* Source */,
+				1DDCB81D217A713C00FAF796 /* Tests */,
 				1DDCB811217A713C00FAF796 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +70,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DDCB812217A713C00FAF796 /* PuiSegmentedControl */ = {
+		1DDCB812217A713C00FAF796 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */,
+				1DDCB82A217A720700FAF796 /* Supporting Files */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		1DDCB81D217A713C00FAF796 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1DDCB82B217A721600FAF796 /* Supporting Files */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		1DDCB82A217A720700FAF796 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				1DDCB813217A713C00FAF796 /* PuiSegmentedControl.h */,
 				1DDCB814217A713C00FAF796 /* Info.plist */,
 			);
-			path = PuiSegmentedControl;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1DDCB81D217A713C00FAF796 /* PuiSegmentedControlTests */ = {
+		1DDCB82B217A721600FAF796 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */,
 				1DDCB820217A713C00FAF796 /* Info.plist */,
 			);
-			path = PuiSegmentedControlTests;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +167,7 @@
 				TargetAttributes = {
 					1DDCB80F217A713C00FAF796 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					1DDCB818217A713C00FAF796 = {
 						CreatedOnToolsVersion = 10.0;
@@ -194,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDCB82D217A722E00FAF796 /* PuiSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,13 +362,14 @@
 		1DDCB825217A713C00FAF796 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PuiSegmentedControl/Info.plist;
+				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -357,6 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.KemalBakacak.PuiSegmentedControl;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,13 +388,14 @@
 		1DDCB826217A713C00FAF796 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PuiSegmentedControl/Info.plist;
+				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -389,6 +413,7 @@
 		1DDCB828217A713C00FAF796 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PuiSegmentedControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +431,7 @@
 		1DDCB829217A713C00FAF796 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PuiSegmentedControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
