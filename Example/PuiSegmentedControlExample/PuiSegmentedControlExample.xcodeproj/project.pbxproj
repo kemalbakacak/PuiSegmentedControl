@@ -12,7 +12,25 @@
 		1D89D3DD217A79020099F68F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3DB217A79020099F68F /* Main.storyboard */; };
 		1D89D3DF217A79040099F68F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3DE217A79040099F68F /* Assets.xcassets */; };
 		1D89D3E2217A79040099F68F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3E0217A79040099F68F /* LaunchScreen.storyboard */; };
+		1D89D3F5217A7A900099F68F /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1D89D3F0217A7A5D0099F68F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DDCB810217A713C00FAF796;
+			remoteInfo = PuiSegmentedControl;
+		};
+		1D89D3F2217A7A5D0099F68F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DDCB819217A713C00FAF796;
+			remoteInfo = PuiSegmentedControlTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D89D3D4217A79020099F68F /* PuiSegmentedControlExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuiSegmentedControlExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +40,7 @@
 		1D89D3DE217A79040099F68F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D89D3E1217A79040099F68F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D89D3E3217A79040099F68F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuiSegmentedControl.xcodeproj; path = ../../PuiSegmentedControl.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D89D3F5217A7A900099F68F /* PuiSegmentedControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +60,8 @@
 			children = (
 				1D89D3D6217A79020099F68F /* PuiSegmentedControlExample */,
 				1D89D3D5217A79020099F68F /* Products */,
+				1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */,
+				1D89D3F4217A7A900099F68F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +100,22 @@
 				1D89D3E0217A79040099F68F /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1D89D3EC217A7A5D0099F68F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */,
+				1D89D3F3217A7A5D0099F68F /* PuiSegmentedControlTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D89D3F4217A7A900099F68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,12 +164,35 @@
 			mainGroup = 1D89D3CB217A79020099F68F;
 			productRefGroup = 1D89D3D5217A79020099F68F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1D89D3EC217A7A5D0099F68F /* Products */;
+					ProjectRef = 1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D89D3D3217A79020099F68F /* PuiSegmentedControlExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PuiSegmentedControl.framework;
+			remoteRef = 1D89D3F0217A7A5D0099F68F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D89D3F3217A7A5D0099F68F /* PuiSegmentedControlTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PuiSegmentedControlTests.xctest;
+			remoteRef = 1D89D3F2217A7A5D0099F68F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D89D3D2217A79020099F68F /* Resources */ = {
