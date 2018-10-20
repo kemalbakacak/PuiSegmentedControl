@@ -85,5 +85,9 @@ class ViewController: UIViewController {
         puiSegmentedControl5.items = ["Tab 1", "Tab2"]
     }
 
+
+    @IBAction func segmentedControlValueChanged(_ sender: PuiSegmentedControl) {
+        print(sender.selectedIndex)
+    }
 }
 
