@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D721DE5217B2E6E00BD1DA7 /* PuiTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D721DE4217B2E6E00BD1DA7 /* PuiTitleLabel.swift */; };
 		1DDCB81A217A713C00FAF796 /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDCB810217A713C00FAF796 /* PuiSegmentedControl.framework */; };
 		1DDCB81F217A713C00FAF796 /* PuiSegmentedControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */; };
 		1DDCB821217A713C00FAF796 /* PuiSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DDCB813217A713C00FAF796 /* PuiSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D721DE4217B2E6E00BD1DA7 /* PuiTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiTitleLabel.swift; sourceTree = "<group>"; };
 		1DDCB810217A713C00FAF796 /* PuiSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PuiSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDCB813217A713C00FAF796 /* PuiSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PuiSegmentedControl.h; sourceTree = "<group>"; };
 		1DDCB814217A713C00FAF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */,
+				1D721DE4217B2E6E00BD1DA7 /* PuiTitleLabel.swift */,
 				1DDCB82A217A720700FAF796 /* Supporting Files */,
 			);
 			path = Source;
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D721DE5217B2E6E00BD1DA7 /* PuiTitleLabel.swift in Sources */,
 				1DDCB82D217A722E00FAF796 /* PuiSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
