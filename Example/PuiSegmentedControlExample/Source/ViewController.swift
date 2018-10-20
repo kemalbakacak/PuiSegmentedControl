@@ -51,11 +51,11 @@ class ViewController: UIViewController {
         puiSegmentedControl2.items = ["123 123", "123 123 123", "123"]
         
         // Configure 3
-        selectedTextAttributes[.foregroundColor] = UIColor.red
+        selectedTextAttributes[.foregroundColor] = UIColor.purple
         unselectedTextAttributes[.foregroundColor] = UIColor.white
         puiSegmentedControl3.selectedTextAttributes = selectedTextAttributes
         puiSegmentedControl3.unselectedTextAttributes = unselectedTextAttributes
-        puiSegmentedControl3.unselectedViewBackgroundColor = UIColor.gray
+        puiSegmentedControl3.unselectedViewBackgroundColor = UIColor.lightGray
         puiSegmentedControl3.selectedViewBackgroundColor = UIColor.clear
         puiSegmentedControl3.borderCornerRadius = puiSegmentedControl1.frame.height / 2
         puiSegmentedControl3.isSeperatorActive = false
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         unselectedTextAttributes[.foregroundColor] = UIColor.darkGray
         puiSegmentedControl4.selectedTextAttributes = selectedTextAttributes
         puiSegmentedControl4.unselectedTextAttributes = unselectedTextAttributes
-        puiSegmentedControl4.unselectedViewBackgroundColor = UIColor.gray
+        puiSegmentedControl4.unselectedViewBackgroundColor = UIColor.lightGray
         puiSegmentedControl4.selectedViewBackgroundColor = UIColor.blue
         puiSegmentedControl4.borderWidth = 0
         puiSegmentedControl4.selectedViewMargins = UIEdgeInsets(top: 40, left: 5, bottom: 0, right: 5)
@@ -76,6 +76,8 @@ class ViewController: UIViewController {
         // Configure 5
         selectedTextAttributes[.foregroundColor] = UIColor.white
         unselectedTextAttributes[.foregroundColor] = UIColor.darkGray
+        puiSegmentedControl5.selectedTextAttributes = selectedTextAttributes
+        puiSegmentedControl5.unselectedTextAttributes = unselectedTextAttributes
         puiSegmentedControl5.backgroundCustomColor = UIColor.gray
         puiSegmentedControl5.backgroundCornerRadius = puiSegmentedControl1.frame.height / 2
         puiSegmentedControl5.borderCornerRadius = puiSegmentedControl1.frame.height / 2

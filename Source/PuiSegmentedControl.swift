@@ -30,7 +30,7 @@ open class PuiSegmentedControl: UIControl {
     // The attributes of the segment's title
     open var unselectedTextAttributes: [NSAttributedString.Key: Any]?
     // The color of the selected view background color.
-    open var selectedViewBackgroundColor: UIColor = .red
+    open var selectedViewBackgroundColor: UIColor = .purple
     // The offset of the selected view from all around.
     open var selectedViewMargins: UIEdgeInsets = .zero
     // The attributes of the selected segment's title
@@ -38,7 +38,7 @@ open class PuiSegmentedControl: UIControl {
     // The index of the selected segment's.
     open var selectedIndex: Int = 0
     // The color of the seperator's.
-    open var seperatorColor: UIColor = .red
+    open var seperatorColor: UIColor = .purple
     // The radius of the seperator's.
     open var seperatorCornerRadius: CGFloat = 2
     // The size of the width seperator's
