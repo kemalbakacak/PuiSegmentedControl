@@ -15,9 +15,13 @@ pod 'PuiSegmentedControl'
 ``` 
 
 ### Carthage
+To integrate PuiSegmentedControl into your Xcode project using Carthage, specify it in your `Cartfile`:
+
 ```bash
-Coming Soon :)
- ``` 
+github "kbakacak/PuiSegmentedControl" ~> 1.0.2
+```
+
+Run `carthage update` to build the framework and drag the built `PuiSegmentedControl.framework` into your Xcode project.
 
 ## Usage
 - Add view to your storyboard and set class PuiSegmentedControl.
