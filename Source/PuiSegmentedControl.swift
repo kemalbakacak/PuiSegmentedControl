@@ -14,45 +14,45 @@ open class PuiSegmentedControl: UIControl {
     // MARK: - Public Properties
 
     // The radius of the background.
-    open var backgroundCornerRadius: CGFloat = 0
+    @objc dynamic open var backgroundCornerRadius: CGFloat = 0
     // The color of the background.
-    open var backgroundCustomColor: UIColor = .clear
+    @objc dynamic open var backgroundCustomColor: UIColor = .clear
     // The radius of the control's border.
-    open var borderCornerRadius: CGFloat = 0
+    @objc dynamic open var borderCornerRadius: CGFloat = 0
     // The color of the control's border.
-    open var borderColor: UIColor = .clear
+    @objc dynamic open var borderColor: UIColor = .clear
     // The size of the width control's border.
-    open var borderWidth: CGFloat = 2
+    @objc dynamic open var borderWidth: CGFloat = 2
     // The color of the background color.
-    open var unselectedViewBackgroundColor: UIColor = .white
+    @objc dynamic open var unselectedViewBackgroundColor: UIColor = .white
     // The offset of the background from all around.
-    open var unselectedViewMargins: UIEdgeInsets = .zero
+    @objc dynamic open var unselectedViewMargins: UIEdgeInsets = .zero
     // The attributes of the segment's title
-    open var unselectedTextAttributes: [NSAttributedString.Key: Any]?
+    @objc dynamic open var unselectedTextAttributes: [NSAttributedString.Key: Any]?
     // The color of the selected view background color.
-    open var selectedViewBackgroundColor: UIColor = .purple
+    @objc dynamic open var selectedViewBackgroundColor: UIColor = .purple
     // The offset of the selected view from all around.
-    open var selectedViewMargins: UIEdgeInsets = .zero
+    @objc dynamic open var selectedViewMargins: UIEdgeInsets = .zero
     // The attributes of the selected segment's title
-    open var selectedTextAttributes: [NSAttributedString.Key: Any] = [:]
+    @objc dynamic open var selectedTextAttributes: [NSAttributedString.Key: Any] = [:]
     // The index of the selected segment's.
-    open var selectedIndex: Int = 0
+    @objc dynamic open var selectedIndex: Int = 0
     // The color of the seperator's.
-    open var seperatorColor: UIColor = .purple
+    @objc dynamic open var seperatorColor: UIColor = .purple
     // The radius of the seperator's.
-    open var seperatorCornerRadius: CGFloat = 2
+    @objc dynamic open var seperatorCornerRadius: CGFloat = 2
     // The size of the width seperator's
-    open var seperatorWidth: CGFloat = 4
+    @objc dynamic open var seperatorWidth: CGFloat = 4
     // The offset of the seperator's from bottom.
-    open var seperatorMarginBottom: CGFloat = 0
+    @objc dynamic open var seperatorMarginBottom: CGFloat = 0
     // The offset of the seperator's from top.
-    open var seperatorMarginTop: CGFloat = 0
+    @objc dynamic open var seperatorMarginTop: CGFloat = 0
     // If the property is true, selected segment's will be rounded.
-    open var isSelectViewAllCornerRadius: Bool = false
+    @objc dynamic open var isSelectViewAllCornerRadius: Bool = false
     // If the property is true, segments divided equals. Otherwise, segment's divided according to text length.
-    open var isEqualWidth: Bool = true
+    @objc dynamic open var isEqualWidth: Bool = true
     // If the property is true, seperator will show.
-    open var isSeperatorActive: Bool = true
+    @objc dynamic open var isSeperatorActive: Bool = true
     // The titles of segments.
     open var items: [String] = [] {
         didSet {
