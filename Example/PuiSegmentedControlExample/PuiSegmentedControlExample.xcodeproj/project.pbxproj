@@ -13,6 +13,7 @@
 		1D89D3DF217A79040099F68F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3DE217A79040099F68F /* Assets.xcassets */; };
 		1D89D3E2217A79040099F68F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3E0217A79040099F68F /* LaunchScreen.storyboard */; };
 		1D89D3F5217A7A900099F68F /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */; };
+		1DEEE04A21B996EB0054D176 /* CustomPuiSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		1D89D3E1217A79040099F68F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D89D3E3217A79040099F68F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuiSegmentedControl.xcodeproj; path = ../../PuiSegmentedControl.xcodeproj; sourceTree = "<group>"; };
+		1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPuiSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				1D89D3D7217A79020099F68F /* AppDelegate.swift */,
+				1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */,
 				1D89D3DB217A79020099F68F /* Main.storyboard */,
 				1D89D3D9217A79020099F68F /* ViewController.swift */,
 				1D89D3EA217A79430099F68F /* Supporting Files */,
@@ -206,6 +209,7 @@
 			files = (
 				1D89D3DA217A79020099F68F /* ViewController.swift in Sources */,
 				1D89D3D8217A79020099F68F /* AppDelegate.swift in Sources */,
+				1DEEE04A21B996EB0054D176 /* CustomPuiSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

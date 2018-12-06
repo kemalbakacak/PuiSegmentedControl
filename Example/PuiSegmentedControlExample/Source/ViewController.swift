@@ -16,10 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var puiSegmentedControl3: PuiSegmentedControl!
     @IBOutlet weak var puiSegmentedControl4: PuiSegmentedControl!
     @IBOutlet weak var puiSegmentedControl5: PuiSegmentedControl!
+    @IBOutlet weak var customPuiSegmentedControl: CustomPuiSegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         var unselectedTextAttributes: [NSAttributedString.Key: Any] = [
             .font : UIFont.systemFont(ofSize: 15),
             .foregroundColor : UIColor.darkGray
@@ -85,8 +86,13 @@ class ViewController: UIViewController {
         puiSegmentedControl5.seperatorMarginBottom = 3
         puiSegmentedControl5.isSelectViewAllCornerRadius = true
         puiSegmentedControl5.items = ["Tab 1", "Tab2"]
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // Configure Custom
+            self.customPuiSegmentedControl.items = ["Custom Tab 1", "Custom Tab 2", "Custom Tab 3"]
+        }
     }
-
 
     @IBAction func segmentedControlValueChanged(_ sender: PuiSegmentedControl) {
         print(sender.selectedIndex)
