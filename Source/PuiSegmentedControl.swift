@@ -36,7 +36,13 @@ open class PuiSegmentedControl: UIControl {
     // The attributes of the selected segment's title
     @objc dynamic open var selectedTextAttributes: [NSAttributedString.Key: Any] = [:]
     // The index of the selected segment's.
-    @objc dynamic open var selectedIndex: Int = 0
+	@objc dynamic open var selectedIndex: Int = 0 {
+		didSet {
+			if oldValue != self.selectedIndex {
+				self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
+			}
+		}
+	}
     // The color of the seperator's.
     @objc dynamic open var seperatorColor: UIColor = .purple
     // The radius of the seperator's.
