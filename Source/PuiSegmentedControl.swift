@@ -61,7 +61,8 @@ open class PuiSegmentedControl: UIControl {
     }
     
     // MARK: - Ptivate Properties
-    
+	
+	private var isConfiguredView: Bool = false
     private var selectedView: UIView = UIView()
     private var selectedViewPositions: [CGFloat] = []
     private var selectedViewWidths: [CGFloat] = []
@@ -90,7 +91,10 @@ open class PuiSegmentedControl: UIControl {
         }
 		
 		// Configure segmented control
-		self.configure()
+		if !self.isConfiguredView {
+			self.configure()
+			self.isConfiguredView = true
+		}
         
         // Update calculated width
         self.configureViewWidth()
