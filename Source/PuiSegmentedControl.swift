@@ -56,7 +56,7 @@ open class PuiSegmentedControl: UIControl {
     // The titles of segments.
     open var items: [String] = [] {
         didSet {
-            self.configure()
+            self.setNeedsLayout()
         }
     }
     
@@ -82,10 +82,15 @@ open class PuiSegmentedControl: UIControl {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
+		
+		// Check item count is zero
         if self.items.count == 0 {
+			// Then do nothing
             return
         }
+		
+		// Configure segmented control
+		self.configure()
         
         // Update calculated width
         self.configureViewWidth()
