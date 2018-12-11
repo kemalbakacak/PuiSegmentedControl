@@ -38,7 +38,7 @@ open class PuiSegmentedControl: UIControl {
     // The index of the selected segment's.
 	@objc dynamic open var selectedIndex: Int = 0 {
 		didSet {
-			if oldValue != self.selectedIndex {
+			if self.isConfiguredView && oldValue != self.selectedIndex {
 				self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
 			}
 		}
