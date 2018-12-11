@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         puiSegmentedControl1.seperatorMarginTop = 3
         puiSegmentedControl1.seperatorMarginBottom = 3
         puiSegmentedControl1.items = ["Tab 1", "Tab2 Tab2 Tab2 Tab2 Tab2", "Tab3"]
+		puiSegmentedControl1.selectedIndex = 2
         
         // Configure 2
         puiSegmentedControl2.selectedTextAttributes = selectedTextAttributes
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
         puiSegmentedControl2.seperatorMarginTop = 3
         puiSegmentedControl2.seperatorMarginBottom = 3
         puiSegmentedControl2.isEqualWidth = false
+		puiSegmentedControl2.selectedIndex = 2
         puiSegmentedControl2.items = ["123 123", "123 123 123", "123"]
         
         // Configure 3
