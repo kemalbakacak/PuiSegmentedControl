@@ -89,11 +89,8 @@ class ViewController: UIViewController {
         puiSegmentedControl5.isSelectViewAllCornerRadius = true
         puiSegmentedControl5.items = ["Tab 1", "Tab2"]
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            // Configure Custom
-            self.customPuiSegmentedControl.items = ["Custom Tab 1", "Custom Tab 2", "Custom Tab 3"]
-        }
+        // Configure Custom
+        self.customPuiSegmentedControl.items = ["Custom Tab 1", "Custom Tab 2", "Custom Tab 3"]
     }
 
     @IBAction func segmentedControlValueChanged(_ sender: PuiSegmentedControl) {
