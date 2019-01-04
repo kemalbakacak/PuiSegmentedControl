@@ -62,6 +62,7 @@ open class PuiSegmentedControl: UIControl {
     // The titles of segments.
     open var items: [String] = [] {
         didSet {
+			self.isConfiguredView = false
             self.setNeedsLayout()
         }
     }
@@ -120,6 +121,16 @@ open class PuiSegmentedControl: UIControl {
     // MARK: - Draw view methods
     
     private func configure() {
+		// Remove all gesture recognizers
+		for gestureRecognizer in self.gestureRecognizers ?? [] {
+			self.removeGestureRecognizer(gestureRecognizer)
+		}
+		
+		// Remove all subviews
+		for subView in self.subviews {
+			subView.removeFromSuperview()
+		}
+		
         // Add gesture recognizer
         self.configureGestureRecognizer()
         
