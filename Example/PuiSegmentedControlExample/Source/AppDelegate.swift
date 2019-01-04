@@ -16,6 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Configure custom segmented control according to UIAppearance protocols
+        let unselectedTextAttributes: [NSAttributedString.Key: Any] = [
+            .font : UIFont.systemFont(ofSize: 15),
+            .foregroundColor : UIColor.darkGray
+        ]
+        let selectedTextAttributes: [NSAttributedString.Key: Any] = [
+            .font : UIFont.systemFont(ofSize: 15),
+            .foregroundColor : UIColor.white
+        ]
+        CustomPuiSegmentedControl.appearance().selectedTextAttributes = selectedTextAttributes
+        CustomPuiSegmentedControl.appearance().unselectedTextAttributes = unselectedTextAttributes
+        CustomPuiSegmentedControl.appearance().backgroundCustomColor = UIColor.gray
+        CustomPuiSegmentedControl.appearance().backgroundCornerRadius = 25
+        CustomPuiSegmentedControl.appearance().borderCornerRadius = 25
+        CustomPuiSegmentedControl.appearance().seperatorMarginTop = 3
+        CustomPuiSegmentedControl.appearance().seperatorMarginBottom = 3
+        
         return true
     }
 
