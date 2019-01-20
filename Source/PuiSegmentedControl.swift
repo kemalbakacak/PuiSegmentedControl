@@ -156,16 +156,21 @@ open class PuiSegmentedControl: UIControl {
     // MARK: - Draw view methods
     
     private func configure() {
-		// Remove all gesture recognizers
-		for gestureRecognizer in self.gestureRecognizers ?? [] {
-			self.removeGestureRecognizer(gestureRecognizer)
-		}
-		
-		// Remove all subviews
-		for subView in self.subviews {
-			subView.removeFromSuperview()
-		}
-		
+        // Remove all gesture recognizers
+        for gestureRecognizer in self.gestureRecognizers ?? [] {
+            self.removeGestureRecognizer(gestureRecognizer)
+        }
+        
+        // Remove all subviews
+        for subView in self.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        // Remove all element from required array
+        self.labels.removeAll()
+        self.selectedViews.removeAll()
+        self.seperatorViews.removeAll()
+        
         // Add gesture recognizer
         self.configureGestureRecognizer()
         
