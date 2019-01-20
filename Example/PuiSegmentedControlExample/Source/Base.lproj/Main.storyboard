@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zc3-Hc-mUu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="q73-B2-Jdt">
-                                <rect key="frame" x="16" y="36" width="343" height="368"/>
+                                <rect key="frame" x="16" y="80" width="343" height="414"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNH-z7-pbv" customClass="PuiSegmentedControl" customModule="PuiSegmentedControl">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="48"/>
@@ -66,6 +66,14 @@
                                             <constraint firstAttribute="height" constant="48" id="oOr-MC-aCr"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKq-tf-SNa">
+                                        <rect key="frame" x="0.0" y="384" width="343" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Go to UIPageViewController"/>
+                                        <connections>
+                                            <segue destination="7xy-at-lyn" kind="show" id="m22-DK-Zot"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -77,6 +85,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HhE-vA-hO1"/>
                     </view>
+                    <navigationItem key="navigationItem" id="5n0-nN-ihp"/>
                     <connections>
                         <outlet property="customPuiSegmentedControl" destination="WV9-Hk-vIF" id="jj9-6V-dG0"/>
                         <outlet property="puiSegmentedControl1" destination="VNH-z7-pbv" id="uK7-dF-Ioa"/>
@@ -88,6 +97,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1103.2" y="133.5832083958021"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="DSg-Ur-IsR">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7xy-at-lyn" customClass="PageViewController" customModule="PuiSegmentedControlExample" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5O-Aq-E7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951.2" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="t9p-b3-QN6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zc3-Hc-mUu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EBk-b8-n3b">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8WZ-VF-fPa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KIw-tx-WZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>
