@@ -11,8 +11,36 @@ import UIKit
 
 open class PuiSegmentedControl: UIControl {
     
+    // MARK: - Data Structures
+    
+    private struct SelectedView {
+        var position: CGFloat!
+        var width: CGFloat!
+        
+        init(position: CGFloat, width: CGFloat) {
+            self.position = position
+            self.width = width
+        }
+        
+        func getMin() -> CGFloat {
+            return self.position
+        }
+        
+        func getMid() -> CGFloat {
+            return self.position + (self.width / 2)
+        }
+        
+        func getMax() -> CGFloat {
+            return self.position + self.width
+        }
+        
+        func isContain(value: CGFloat) -> Bool {
+            return self.getMax() > value && self.getMin() < value
+        }
+    }
+    
     // MARK: - Public Properties
-
+    
     // The radius of the background.
     @objc dynamic open var backgroundCornerRadius: CGFloat = 0
     // The color of the background.
@@ -191,7 +219,8 @@ open class PuiSegmentedControl: UIControl {
         
         // Set corner radius
         self.selectedView.layer.masksToBounds = true
-        self.changeSelectedViewCornerRadius(index: self.selectedIndex)
+        self.changeSelectedViewCornerRadius(index: self.selectedIndex,
+                                            cornerRadius: self.borderCornerRadius)
         
         // Add sublayer
         self.addSubview(self.selectedView)
@@ -260,9 +289,9 @@ open class PuiSegmentedControl: UIControl {
         label.isSelected = (index == self.selectedIndex)
         
         // Set frame
-        label.frame = CGRect(x: self.selectedViewPositions[index],
+        label.frame = CGRect(x: self.selectedViews[index].position,
                              y: 0,
-                             width: self.selectedViewWidths[index],
+                             width: self.selectedViews[index].width,
                              height: self.bounds.height)
     }
     
@@ -339,9 +368,9 @@ open class PuiSegmentedControl: UIControl {
     
     // Configure selected view frame according to global
     private func configureSelectedViewFrame() {
-        let frame = CGRect(x: self.selectedViewPositions[self.selectedIndex],
+        let frame = CGRect(x: self.selectedViews[self.selectedIndex].position,
                            y: 0,
-                           width: self.selectedViewWidths[self.selectedIndex],
+                           width: self.selectedViews[self.selectedIndex].width,
                            height: self.bounds.height)
         self.selectedView.frame = self.applyMargin(rect: frame, to: self.selectedViewMargins)
     }
