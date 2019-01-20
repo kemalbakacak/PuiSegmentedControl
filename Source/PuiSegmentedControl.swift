@@ -64,13 +64,13 @@ open class PuiSegmentedControl: UIControl {
     // The attributes of the selected segment's title
     @objc dynamic open var selectedTextAttributes: [NSAttributedString.Key: Any] = [:]
     // The index of the selected segment's.
-	@objc dynamic open var selectedIndex: Int = 0 {
-		didSet {
-			if self.isConfiguredView && oldValue != self.selectedIndex {
-				self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
-			}
-		}
-	}
+    @objc dynamic open var selectedIndex: Int = 0 {
+        didSet {
+            if self.isConfiguredView && oldValue != self.selectedIndex {
+                self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
+            }
+        }
+    }
     // The color of the seperator's.
     @objc dynamic open var seperatorColor: UIColor = .purple
     // The radius of the seperator's.
@@ -90,19 +90,22 @@ open class PuiSegmentedControl: UIControl {
     // The titles of segments.
     open var items: [String] = [] {
         didSet {
-			self.isConfiguredView = false
+            self.isConfiguredView = false
             self.setNeedsLayout()
         }
     }
     
-    // MARK: - Ptivate Properties
-	
-	private var isConfiguredView: Bool = false
+    // MARK: - Private Properties
+    
+    private var isConfiguredView: Bool = false
     private var selectedView: UIView = UIView()
-    private var selectedViewPositions: [CGFloat] = []
-    private var selectedViewWidths: [CGFloat] = []
+    private var selectedViews: [SelectedView] = []
     private var labels: [PuiTitleLabel] = []
     private var seperatorViews: [UIView] = []
+    
+    // Panned
+    private var isDraggingSelectedView: Bool = false
+    private var destinationIndex: Int = 0
     
     // MARK: - Init methods
     
@@ -118,18 +121,22 @@ open class PuiSegmentedControl: UIControl {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-		
-		// Check item count is zero
+        
+        // Check item count is zero
         if self.items.count == 0 {
-			// Then do nothing
+            // Then do nothing
             return
         }
-		
-		// Configure segmented control
-		if !self.isConfiguredView {
-			self.configure()
-			self.isConfiguredView = true
-		}
+        
+        // Configure segmented control
+        if !self.isConfiguredView {
+            self.configure()
+            self.isConfiguredView = true
+        }
+        
+        if self.isDraggingSelectedView {
+            return
+        }
         
         // Update calculated width
         self.configureViewWidth()
@@ -229,8 +236,7 @@ open class PuiSegmentedControl: UIControl {
     // Calculate segment's width according to public property.
     private func configureViewWidth() {
         // Remove all elements, because we add new values
-        self.selectedViewPositions = []
-        self.selectedViewWidths = []
+        self.selectedViews = []
         
         // Get total segment count
         let totalSegmentCount = self.items.count
@@ -239,10 +245,9 @@ open class PuiSegmentedControl: UIControl {
             // Screen width divide by total segment count
             let availableWidth = self.bounds.width / CGFloat(totalSegmentCount)
             for i in 0..<totalSegmentCount {
-                self.selectedViewPositions.append(availableWidth * CGFloat(i))
+                self.selectedViews.append(SelectedView(position: availableWidth * CGFloat(i),
+                                                       width: availableWidth))
             }
-            self.selectedViewWidths = Array.init(repeating: availableWidth,
-                                                 count: totalSegmentCount)
         } else {
             // Calculate each segment width according to text sizes.
             // Firstly, get total length
@@ -256,10 +261,11 @@ open class PuiSegmentedControl: UIControl {
             for i in 0..<totalSegmentCount {
                 let itemSize = items[i].count
                 // Calculate start x position
-                self.selectedViewPositions.append(width * CGFloat(Float(currentTotalSize) / Float(totalSize)))
+                let itemPosition = width * CGFloat(Float(currentTotalSize) / Float(totalSize))
                 // Calculate width
-                self.selectedViewWidths.append(width * CGFloat((Float(itemSize) / Float(totalSize))))
-                
+                let itemWidth = width * CGFloat((Float(itemSize) / Float(totalSize)))
+                // Append array
+                self.selectedViews.append(SelectedView(position: itemPosition, width: itemWidth))
                 // Add current item size
                 currentTotalSize += itemSize
             }
@@ -270,8 +276,8 @@ open class PuiSegmentedControl: UIControl {
     private func configureLabels() {
         for i in 0..<self.items.count {
             let label = PuiTitleLabel(text: items[i],
-                                       selectedAttribute: self.selectedTextAttributes,
-                                       unselectedAttribute: self.unselectedTextAttributes)
+                                      selectedAttribute: self.selectedTextAttributes,
+                                      unselectedAttribute: self.unselectedTextAttributes)
             
             // Configure frame
             self.configureLabelFrame(index: i, label: label)
@@ -335,16 +341,23 @@ open class PuiSegmentedControl: UIControl {
     // MARK: - Changed Segment Actions.
     
     // Set radius of the segment's according to index and positions.
-    private func changeSelectedViewCornerRadius(index: Int) {
+    private func changeSelectedViewCornerRadius(index: Int, cornerRadius: CGFloat) {
+        // Set zero
+        self.selectedView.layer.cornerRadius = 0
+        
+        // Calculate difference
+        let calculatedCornerRadius = cornerRadius - self.borderWidth
+        
+        // Check required status.
         if self.isSelectViewAllCornerRadius {
-            self.selectedView.layer.cornerRadius = self.borderCornerRadius - self.borderWidth
+            self.selectedView.layer.cornerRadius = calculatedCornerRadius
         } else {
             self.selectedView.layer.mask = nil
             // Check first and last segment position for corners radius.
             if index == 0 {
-                self.roundCorners(corners: [.topLeft, .bottomLeft], radius: self.borderCornerRadius - self.borderWidth)
+                self.roundCorners(corners: [.topLeft, .bottomLeft], radius: calculatedCornerRadius)
             } else if index == (self.items.count - 1) {
-                self.roundCorners(corners: [.topRight, .bottomRight], radius: self.borderCornerRadius - self.borderWidth)
+                self.roundCorners(corners: [.topRight, .bottomRight], radius: calculatedCornerRadius)
             }
         }
     }
@@ -357,7 +370,8 @@ open class PuiSegmentedControl: UIControl {
         self.configureSelectedViewFrame()
         
         // Setup corners
-        self.changeSelectedViewCornerRadius(index: self.selectedIndex)
+        self.changeSelectedViewCornerRadius(index: self.selectedIndex,
+                                            cornerRadius: self.borderCornerRadius)
         
         // Change attributes
         self.labels[oldValue].isSelected = false
