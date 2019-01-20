@@ -461,5 +461,63 @@ open class PuiSegmentedControl: UIControl {
                       width: rect.width - to.left - to.right,
                       height: rect.height - to.bottom - to.top)
     }
+    
+    // MARK: - Helper Methods for Page View
+    
+    public func scrollSegmentedControl(ratio: CGFloat) {
+        // For Layoutsubviews control
+        self.isDraggingSelectedView = true
+        
+        // Get direction
+        let isMovingToRight = ratio < 0
+        
+        // Check out of view
+        if (isMovingToRight && self.selectedIndex == (self.selectedViews.count - 1))
+            || (!isMovingToRight && self.selectedIndex == 0) {
+            return
+        }
+        
+        // Get following index
+        self.destinationIndex = isMovingToRight ? (self.selectedIndex + 1) : (self.selectedIndex - 1)
+        
+        // Get current view
+        let currentView = self.selectedViews[self.selectedIndex]
+        
+        // If all view is not equal then calculate added width
+        if !self.isEqualWidth {
+            // Get destination view
+            let destinationView = self.selectedViews[self.destinationIndex]
+            
+            // Configure width
+            let addedWidth = abs(destinationView.width - currentView.width) * abs(ratio)
+            if destinationView.width > currentView.width {
+                self.selectedView.frame.size.width = currentView.width + addedWidth
+            } else {
+                self.selectedView.frame.size.width = currentView.width - addedWidth
+            }
+            
+            // Configure position
+            if isMovingToRight {
+                self.selectedView.frame.origin.x = currentView.position + (currentView.width * abs(ratio))
+            } else {
+                self.selectedView.frame.origin.x = currentView.position - (destinationView.width * abs(ratio))
+            }
+            
+        } else {
+            // Calculate new position
+            let newPosition = currentView.position - (currentView.width * ratio)
+            self.selectedView.frame.origin.x = newPosition
+        }
+    }
+    
+    public func pageViewTransactionEnded(isCompleted: Bool) {
+        self.isDraggingSelectedView = false
+        
+        if isCompleted {
+            self.changeSegment(oldValue: self.selectedIndex, newValue: self.destinationIndex)
+        } else {
+            self.changeSegment(oldValue: self.selectedIndex, newValue: self.selectedIndex)
+        }
+    }
 }
 

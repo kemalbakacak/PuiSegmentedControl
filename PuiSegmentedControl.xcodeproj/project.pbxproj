@@ -12,6 +12,7 @@
 		1DDCB81F217A713C00FAF796 /* PuiSegmentedControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */; };
 		1DDCB821217A713C00FAF796 /* PuiSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DDCB813217A713C00FAF796 /* PuiSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DDCB82D217A722E00FAF796 /* PuiSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */; };
+		1DDD12FE21F48436006E0375 /* PuiPageViewSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDD12FD21F48436006E0375 /* PuiPageViewSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		1DDCB81E217A713C00FAF796 /* PuiSegmentedControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiSegmentedControlTests.swift; sourceTree = "<group>"; };
 		1DDCB820217A713C00FAF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiSegmentedControl.swift; sourceTree = "<group>"; };
+		1DDD12FD21F48436006E0375 /* PuiPageViewSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuiPageViewSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		1DDCB812217A713C00FAF796 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1DDD12FD21F48436006E0375 /* PuiPageViewSegmentedControl.swift */,
 				1DDCB82C217A722E00FAF796 /* PuiSegmentedControl.swift */,
 				1D721DE4217B2E6E00BD1DA7 /* PuiTitleLabel.swift */,
 				1DDCB82A217A720700FAF796 /* Supporting Files */,
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDD12FE21F48436006E0375 /* PuiPageViewSegmentedControl.swift in Sources */,
 				1D721DE5217B2E6E00BD1DA7 /* PuiTitleLabel.swift in Sources */,
 				1DDCB82D217A722E00FAF796 /* PuiSegmentedControl.swift in Sources */,
 			);
