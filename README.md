@@ -4,6 +4,8 @@ PuiSegmentedControl is a customizable for segmented control.
 - More configuration according to UISegmentedControl
 - Configure title styling with NSAttributedString.Key such as font, color etc.
 - Styling border, background, seperator etc.
+- Animated segment change (Not working with different corner radius).
+- Supported scroll when scrolling UIPageViewController (Same as above matter).
 - Written with Swift :)
 
 ## Installation
@@ -18,7 +20,7 @@ pod 'PuiSegmentedControl'
 To integrate PuiSegmentedControl into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```bash
-github "kbakacak/PuiSegmentedControl" ~> 1.0.2
+github "kbakacak/PuiSegmentedControl" ~> 1.1.0
 ```
 
 Run `carthage update` to build the framework and drag the built `PuiSegmentedControl.framework` into your Xcode project.
@@ -32,6 +34,7 @@ Run `carthage update` to build the framework and drag the built `PuiSegmentedCon
 Variables that you can use:
 
 ```swift
+open var animatedTabTransationDuration: TimeInterval = 1 // The value of the animation tab when isAnimatedTabTransation property is true
 open var backgroundCornerRadius: CGFloat = 0 // The radius of the background.
 open var backgroundCustomColor: UIColor = .clear // The color of the background.
 open var borderCornerRadius: CGFloat = 0 // The radius of the control's border.
@@ -49,11 +52,16 @@ open var seperatorCornerRadius: CGFloat = 2 // The radius of the seperator's.
 open var seperatorWidth: CGFloat = 4 // The size of the width seperator's
 open var seperatorMarginBottom: CGFloat = 0 // The offset of the seperator's from bottom.
 open var seperatorMarginTop: CGFloat = 0 // The offset of the seperator's from top.
+open var isAnimatedTabTransation: Bool = false // If the property is true, tab transation will be animated.
 open var isSelectViewAllCornerRadius: Bool = false // If the property is true, selected segment's will be rounded.
 open var isEqualWidth: Bool = true // If the property is true, segments divided equals. Otherwise, segment's divided according to text length.
 open var isSeperatorActive: Bool = true // If the property is true, seperator will show.
 open var items: [String] = [] // The titles of segments.
 ```
+
+### Usage with UIPageViewController
+
+If you want to use with UIPageViewController, you need to use ``PuiPageViewSegmentedControl`` and set ``pageViewController`` property for required delegate. You can example ``PageViewController`` in example project. ``PuiPageViewSegmentedControl``is subclass of ``PuiSegmentedControl`` so you can use same properties above.
 
 ![Screenshot](https://github.com/kbakacak/PuiSegmentedControl/blob/develop/DemoScreenshot.png)
 
