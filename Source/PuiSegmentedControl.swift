@@ -41,6 +41,8 @@ open class PuiSegmentedControl: UIControl {
     
     // MARK: - Public Properties
     
+    // The value of the animation tab when isAnimatedTabTransation property is true
+    @objc dynamic open var animatedTabTransationDuration: TimeInterval = 1
     // The radius of the background.
     @objc dynamic open var backgroundCornerRadius: CGFloat = 0
     // The color of the background.
@@ -81,6 +83,8 @@ open class PuiSegmentedControl: UIControl {
     @objc dynamic open var seperatorMarginBottom: CGFloat = 0
     // The offset of the seperator's from top.
     @objc dynamic open var seperatorMarginTop: CGFloat = 0
+    // If the property is true, tab transation will be animated.
+    @objc dynamic open var isAnimatedTabTransation: Bool = false
     // If the property is true, selected segment's will be rounded.
     @objc dynamic open var isSelectViewAllCornerRadius: Bool = false
     // If the property is true, segments divided equals. Otherwise, segment's divided according to text length.
@@ -225,6 +229,7 @@ open class PuiSegmentedControl: UIControl {
         
         // Set autolayout proporty
         self.selectedView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.selectedView.translatesAutoresizingMaskIntoConstraints = false
         
         // Set background color
         self.selectedView.backgroundColor = self.selectedViewBackgroundColor
@@ -385,6 +390,51 @@ open class PuiSegmentedControl: UIControl {
         self.changeSeperatorVisibility()
     }
     
+    private func viewTappedSegmentChange(oldValue: Int, newValue: Int) {
+        // Check animation
+        if self.isDraggingSelectedView {
+            return
+        }
+        
+        // Set animated
+        self.isDraggingSelectedView = true
+        
+        if self.isAnimatedTabTransation {
+            UIView.animate(withDuration: self.animatedTabTransationDuration,
+                           animations: { [weak self] in
+                            guard let self = self else { return }
+                            // Update frame position
+                            self.selectedView.frame.origin.x = self.selectedViews[newValue].position
+                            
+                            // If not equal all width, set new width
+                            if !self.isEqualWidth {
+                                self.selectedView.frame.size.width = self.selectedViews[newValue].width
+                            }
+            }) { [weak self] finished in
+                guard let self = self else { return }
+                if finished {
+                    self.viewTappedSegmentChangeEnded(oldValue: oldValue, newValue: newValue)
+                }
+            }
+        } else {
+            self.viewTappedSegmentChangeEnded(oldValue: oldValue, newValue: newValue)
+        }
+    }
+    
+    private func viewTappedSegmentChangeEnded(oldValue: Int, newValue: Int) {
+        // Change segment normally
+        self.changeSegment(oldValue: oldValue, newValue: newValue)
+        
+        // Remove animation
+        self.selectedView.layer.removeAllAnimations()
+        
+        // Send action
+        self.sendActions(for: .valueChanged)
+        
+        // Set animated
+        self.isDraggingSelectedView = false
+    }
+    
     // Configure selected view frame according to global
     private func configureSelectedViewFrame() {
         let frame = CGRect(x: self.selectedViews[self.selectedIndex].position,
@@ -433,9 +483,7 @@ open class PuiSegmentedControl: UIControl {
                                           width: labels[i].frame.width,
                                           height: self.bounds.height)
                 if size.contains(touchPoint) {
-                    self.changeSegment(oldValue: self.selectedIndex, newValue: i)
-                    self.selectedView.layer.removeAllAnimations()
-                    self.sendActions(for: .valueChanged)
+                    self.viewTappedSegmentChange(oldValue: self.selectedIndex, newValue: i)
                     break
                 }
             }
