@@ -69,6 +69,8 @@ class PageViewController: UIPageViewController {
         puiSegmentedControl2.isSeperatorActive = false
         puiSegmentedControl2.items = ["123 123", "123 123 123", "123"]
         puiSegmentedControl2.selectedIndex = 1
+        puiSegmentedControl2.isAnimatedTabTransation = true
+        puiSegmentedControl2.animatedTabTransationDuration = 3
         
         // Set background
         self.view.backgroundColor = .white

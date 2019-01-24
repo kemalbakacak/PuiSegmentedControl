@@ -87,6 +87,7 @@ class ViewController: UIViewController {
         puiSegmentedControl5.seperatorMarginTop = 3
         puiSegmentedControl5.seperatorMarginBottom = 3
         puiSegmentedControl5.isSelectViewAllCornerRadius = true
+        puiSegmentedControl5.isAnimatedTabTransation = true
         puiSegmentedControl5.items = ["Tab 1", "Tab2"]
         
         // Configure Custom

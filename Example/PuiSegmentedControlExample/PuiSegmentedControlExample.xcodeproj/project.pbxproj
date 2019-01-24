@@ -82,13 +82,9 @@
 		1D89D3D6217A79020099F68F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1D89D3D7217A79020099F68F /* AppDelegate.swift */,
-				1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */,
-				1D89D3DB217A79020099F68F /* Main.storyboard */,
-				1D89D3D9217A79020099F68F /* ViewController.swift */,
+				1DA77BF221FA55FE006BF1BA /* App */,
+				1DA77BF321FA5624006BF1BA /* Screens */,
 				1D89D3EA217A79430099F68F /* Supporting Files */,
-				1DE89E3F21D2B080008CD580 /* PageViewController.swift */,
-				1DE89E4321D2B114008CD580 /* PageViewItemController.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -117,6 +113,42 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1DA77BEE21FA5450006BF1BA /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				1DE89E3F21D2B080008CD580 /* PageViewController.swift */,
+				1DE89E4321D2B114008CD580 /* PageViewItemController.swift */,
+			);
+			path = PageView;
+			sourceTree = "<group>";
+		};
+		1DA77BF021FA5487006BF1BA /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */,
+				1D89D3DB217A79020099F68F /* Main.storyboard */,
+				1D89D3D9217A79020099F68F /* ViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		1DA77BF221FA55FE006BF1BA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1D89D3D7217A79020099F68F /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1DA77BF321FA5624006BF1BA /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				1DA77BF021FA5487006BF1BA /* Main */,
+				1DA77BEE21FA5450006BF1BA /* PageView */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
