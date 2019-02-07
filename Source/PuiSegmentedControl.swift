@@ -236,8 +236,7 @@ open class PuiSegmentedControl: UIControl {
         
         // Set corner radius
         self.selectedView.layer.masksToBounds = true
-        self.changeSelectedViewCornerRadius(index: self.selectedIndex,
-                                            cornerRadius: self.borderCornerRadius)
+        self.changeSelectedViewCornerRadius(index: self.selectedIndex)
         
         // Add sublayer
         self.addSubview(self.selectedView)
@@ -351,12 +350,13 @@ open class PuiSegmentedControl: UIControl {
     // MARK: - Changed Segment Actions.
     
     // Set radius of the segment's according to index and positions.
-    private func changeSelectedViewCornerRadius(index: Int, cornerRadius: CGFloat) {
+    private func changeSelectedViewCornerRadius(index: Int) {
         // Set zero
         self.selectedView.layer.cornerRadius = 0
         
         // Calculate difference
-        let calculatedCornerRadius = cornerRadius - (self.borderWidth + self.selectedViewMargins.top)
+        let calculatedCornerRadius = self.borderCornerRadius -
+            (self.borderWidth + ((self.selectedViewMargins.top + self.selectedViewMargins.bottom) / 2))
         
         // Check required status.
         if self.isSelectViewAllCornerRadius {
@@ -380,8 +380,7 @@ open class PuiSegmentedControl: UIControl {
         self.configureSelectedViewFrame()
         
         // Setup corners
-        self.changeSelectedViewCornerRadius(index: self.selectedIndex,
-                                            cornerRadius: self.borderCornerRadius)
+        self.changeSelectedViewCornerRadius(index: self.selectedIndex)
         
         // Change attributes
         self.labels[oldValue].isSelected = false
