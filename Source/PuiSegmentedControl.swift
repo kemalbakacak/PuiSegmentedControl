@@ -356,7 +356,7 @@ open class PuiSegmentedControl: UIControl {
         self.selectedView.layer.cornerRadius = 0
         
         // Calculate difference
-        let calculatedCornerRadius = cornerRadius - self.borderWidth
+        let calculatedCornerRadius = cornerRadius - (self.borderWidth + self.selectedViewMargins.top)
         
         // Check required status.
         if self.isSelectViewAllCornerRadius {
