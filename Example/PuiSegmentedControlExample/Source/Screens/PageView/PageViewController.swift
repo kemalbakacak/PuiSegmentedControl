@@ -92,7 +92,29 @@ class PageViewController: UIPageViewController {
         // Set segmented control property
 //        puiSegmentedControl1.pageViewController = self
         puiSegmentedControl2.pageViewController = self
+        puiSegmentedControl2.delegate = self
 
+    }
+    
+    // MARK: - Helper Functions
+    
+    fileprivate func navigate(fromSelectedIndex fromIndex: Int, toSelectedIndex toIndex: Int) {
+        let viewController = self.pages[toIndex]
+        
+        // Check index
+        if (fromIndex < toIndex) {
+            // Then set view controller
+            self.setViewControllers([viewController],
+                                    direction: .forward,
+                                    animated: true,
+                                    completion: nil)
+        } else {
+            // Then set view controller
+            self.setViewControllers([viewController],
+                                    direction: .reverse,
+                                    animated: true,
+                                    completion: nil)
+        }
     }
 }
 
@@ -116,3 +138,14 @@ extension PageViewController: UIPageViewControllerDataSource {
     }
 }
 
+extension PageViewController: PuiSegmentedControlDelegate {
+    func segmentedControlTransationBegin(oldValue: Int, newValue: Int) {
+        self.navigate(fromSelectedIndex: oldValue,
+                               toSelectedIndex: newValue)
+    }
+    
+    func segmentedControlTransationEnded(oldValue: Int, newValue: Int) {
+        
+    }
+    
+}
