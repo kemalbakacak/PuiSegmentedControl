@@ -20,6 +20,7 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
             for subview in self.pageViewController?.view.subviews ?? [] {
                 if let scrollView = subview as? UIScrollView {
                     scrollView.delegate = self
+                    self.scrollView = scrollView
                     break
                 }
             }
@@ -28,8 +29,25 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
     
     // MARK: - Private Properties
     
+    private var scrollView: UIScrollView?
     private var initialScrollViewPosition: CGFloat = 0
-    private var transactionCompleted: Bool = true
+    
+    // MARK: - Override Methods
+    
+    open override func segmentedControlTransationBegin(oldValue: Int, newValue: Int) {
+        super.segmentedControlTransationBegin(oldValue: oldValue, newValue: newValue)
+        
+        // When user tapped to segmented control, then tapped to pageview before animation finished.
+        // Segment problem occurs. So I disable to scroll when animation.
+        self.scrollView?.isScrollEnabled = false
+    }
+    
+    open override func segmentedControlTransationEnded(oldValue: Int, newValue: Int) {
+        super.segmentedControlTransationEnded(oldValue: oldValue, newValue: newValue)
+        
+        // Enable scroll end of animation.
+        self.scrollView?.isScrollEnabled = true
+    }
 }
 
 extension PuiPageViewSegmentedControl: UIPageViewControllerDelegate {
@@ -37,8 +55,6 @@ extension PuiPageViewSegmentedControl: UIPageViewControllerDelegate {
                                    didFinishAnimating finished: Bool,
                                    previousViewControllers: [UIViewController],
                                    transitionCompleted completed: Bool) {
-        self.transactionCompleted = true
-        
         // Call super method
         self.pageViewTransactionEnded(isCompleted: completed)
     }
@@ -47,9 +63,7 @@ extension PuiPageViewSegmentedControl: UIPageViewControllerDelegate {
 extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if self.transactionCompleted {
-            self.initialScrollViewPosition = scrollView.contentOffset.x
-        }
+        self.initialScrollViewPosition = scrollView.contentOffset.x
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {

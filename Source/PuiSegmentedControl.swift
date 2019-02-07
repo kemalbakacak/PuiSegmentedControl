@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+public protocol PuiSegmentedControlDelegate: NSObjectProtocol {
+    
+    func segmentedControlTransationBegin(oldValue: Int, newValue: Int)
+    func segmentedControlTransationEnded(oldValue: Int, newValue: Int)
+    
+}
+
 open class PuiSegmentedControl: UIControl {
     
     // MARK: - Data Structures
@@ -68,7 +75,9 @@ open class PuiSegmentedControl: UIControl {
     // The index of the selected segment's.
     @objc dynamic open var selectedIndex: Int = 0 {
         didSet {
-            if self.isConfiguredView && oldValue != self.selectedIndex {
+            if self.isConfiguredView
+                && !self.isDraggingSelectedView
+                && oldValue != self.selectedIndex {
                 self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
             }
         }
@@ -99,6 +108,8 @@ open class PuiSegmentedControl: UIControl {
         }
     }
     
+    public var delegate: PuiSegmentedControlDelegate?
+    
     // MARK: - Private Properties
     
     private var isConfiguredView: Bool = false
@@ -109,6 +120,7 @@ open class PuiSegmentedControl: UIControl {
     
     // Panned
     private var isDraggingSelectedView: Bool = false
+    private var isAnimatingSelectedView: Bool = false
     private var destinationIndex: Int = 0
     
     // MARK: - Init methods
@@ -133,13 +145,11 @@ open class PuiSegmentedControl: UIControl {
         }
         
         // Configure segmented control
-        if !self.isConfiguredView {
+        if self.isConfiguredView {
+            return
+        } else {
             self.configure()
             self.isConfiguredView = true
-        }
-        
-        if self.isDraggingSelectedView {
-            return
         }
         
         // Update calculated width
@@ -387,6 +397,16 @@ open class PuiSegmentedControl: UIControl {
         self.labels[newValue].isSelected = true
         
         self.changeSeperatorVisibility()
+        
+        // Set animated
+        self.isDraggingSelectedView = false
+        self.isAnimatingSelectedView = false
+        
+        // Call end transaction method
+        self.segmentedControlTransationEnded(oldValue: oldValue, newValue: newValue)
+        
+        // Send action
+        self.sendActions(for: .valueChanged)
     }
     
     private func viewTappedSegmentChange(oldValue: Int, newValue: Int) {
@@ -398,10 +418,16 @@ open class PuiSegmentedControl: UIControl {
         // Set animated
         self.isDraggingSelectedView = true
         
+        // Call begin transaction method
+        self.segmentedControlTransationBegin(oldValue: oldValue, newValue: newValue)
+        
+        // Check is animated tab transation
         if self.isAnimatedTabTransation {
             UIView.animate(withDuration: self.animatedTabTransationDuration,
                            animations: { [weak self] in
                             guard let self = self else { return }
+                            self.isAnimatingSelectedView = true
+                            
                             // Update frame position
                             self.selectedView.frame.origin.x = self.selectedViews[newValue].position
                             
@@ -416,6 +442,7 @@ open class PuiSegmentedControl: UIControl {
                 }
             }
         } else {
+            self.isAnimatingSelectedView = true
             self.viewTappedSegmentChangeEnded(oldValue: oldValue, newValue: newValue)
         }
     }
@@ -426,12 +453,6 @@ open class PuiSegmentedControl: UIControl {
         
         // Remove animation
         self.selectedView.layer.removeAllAnimations()
-        
-        // Send action
-        self.sendActions(for: .valueChanged)
-        
-        // Set animated
-        self.isDraggingSelectedView = false
     }
     
     // Configure selected view frame according to global
@@ -441,6 +462,9 @@ open class PuiSegmentedControl: UIControl {
                            width: self.selectedViews[self.selectedIndex].width,
                            height: self.bounds.height)
         self.selectedView.frame = self.applyMargin(rect: frame, to: self.selectedViewMargins)
+        
+        // Remove animation
+        self.selectedView.layer.removeAllAnimations()
     }
     
     // Configure seperator visibility according to selected index
@@ -511,7 +535,12 @@ open class PuiSegmentedControl: UIControl {
     
     // MARK: - Helper Methods for Page View
     
+    // When scrolling pageview, we need to upload segmented control with private function in this class
     public func scrollSegmentedControl(ratio: CGFloat) {
+        if self.isAnimatingSelectedView {
+            return
+        }
+        
         // For Layoutsubviews control
         self.isDraggingSelectedView = true
         
@@ -521,6 +550,8 @@ open class PuiSegmentedControl: UIControl {
         // Check out of view
         if (isMovingToRight && self.selectedIndex == (self.selectedViews.count - 1))
             || (!isMovingToRight && self.selectedIndex == 0) {
+            // When dragging out of view, then we can set dragging property to false
+            self.isDraggingSelectedView = false
             return
         }
         
@@ -557,14 +588,25 @@ open class PuiSegmentedControl: UIControl {
         }
     }
     
+    // When page view delegate triggered, this function configure to segmented control.
     public func pageViewTransactionEnded(isCompleted: Bool) {
-        self.isDraggingSelectedView = false
-        
         if isCompleted {
             self.changeSegment(oldValue: self.selectedIndex, newValue: self.destinationIndex)
         } else {
-            self.changeSegment(oldValue: self.selectedIndex, newValue: self.selectedIndex)
+            self.isDraggingSelectedView = false
         }
+    }
+    
+    // Call function, if subclass is page view segmented control.
+    // Then, developer configured view when transaction beginned.
+    open func segmentedControlTransationBegin(oldValue: Int, newValue: Int) {
+        self.delegate?.segmentedControlTransationBegin(oldValue: oldValue, newValue: newValue)
+    }
+    
+    // Call deelgate function, if subclass is page view segmented control.
+    // Then, developer configured view when transaction ended.
+    open func segmentedControlTransationEnded(oldValue: Int, newValue: Int) {
+        self.delegate?.segmentedControlTransationEnded(oldValue: oldValue, newValue: newValue)
     }
 }
 
