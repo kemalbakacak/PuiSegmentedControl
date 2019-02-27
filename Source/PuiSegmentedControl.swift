@@ -108,7 +108,7 @@ open class PuiSegmentedControl: UIControl {
         }
     }
     
-    public var delegate: PuiSegmentedControlDelegate?
+    public weak var delegate: PuiSegmentedControlDelegate?
     
     // MARK: - Private Properties
     
