@@ -8,6 +8,15 @@
 
 import Foundation
 
+public protocol PuiScrollViewSegmentedControlDelegate: NSObjectProtocol {
+	
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+	func scrollViewDidScroll(_ scrollView: UIScrollView)
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+	
+}
+
 open class PuiPageViewSegmentedControl: PuiSegmentedControl {
     
     // MARK: - Public Properties
@@ -26,6 +35,7 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
             }
         }
     }
+	public weak var scrollViewDelegate: PuiScrollViewSegmentedControlDelegate?
     
     // MARK: - Private Properties
     
@@ -62,11 +72,19 @@ extension PuiPageViewSegmentedControl: UIPageViewControllerDelegate {
 
 extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.initialScrollViewPosition = scrollView.contentOffset.x
-    }
+	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		// Call scrollview delegate
+		self.scrollViewDelegate?.scrollViewWillBeginDragging(scrollView)
+		
+		// Set initial position
+		self.initialScrollViewPosition = scrollView.contentOffset.x
+	}
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		// Call scrollview delegate
+		self.scrollViewDelegate?.scrollViewDidScroll(scrollView)
+		
+		// Check content offset
         if self.initialScrollViewPosition == scrollView.contentOffset.x {
             return
         }
@@ -78,5 +96,14 @@ extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
         // Call super method
         self.scrollSegmentedControl(ratio: ratio)
     }
-    
+	
+	public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		// Call scrollview delegate
+		self.scrollViewDelegate?.scrollViewDidEndDecelerating(scrollView)
+	}
+	
+	public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+		// Call scrollview delegate
+		self.scrollViewDelegate?.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+	}
 }
