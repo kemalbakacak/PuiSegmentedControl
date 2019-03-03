@@ -69,8 +69,8 @@ class PageViewController: UIPageViewController {
         puiSegmentedControl2.isSeperatorActive = false
         puiSegmentedControl2.items = ["123 123", "123 123 123", "123"]
         puiSegmentedControl2.selectedIndex = 1
-        puiSegmentedControl2.isAnimatedTabTransation = true
-        puiSegmentedControl2.animatedTabTransationDuration = 3
+        puiSegmentedControl2.isAnimatedTabTransition = true
+        puiSegmentedControl2.animatedTabTransitionDuration = 3
         
         // Set background
         self.view.backgroundColor = .white
@@ -139,12 +139,12 @@ extension PageViewController: UIPageViewControllerDataSource {
 }
 
 extension PageViewController: PuiSegmentedControlDelegate {
-    func segmentedControlTransationBegin(oldValue: Int, newValue: Int) {
+    func segmentedControlTransitionBegin(oldValue: Int, newValue: Int) {
         self.navigate(fromSelectedIndex: oldValue,
                                toSelectedIndex: newValue)
     }
     
-    func segmentedControlTransationEnded(oldValue: Int, newValue: Int) {
+    func segmentedControlTransitionEnded(oldValue: Int, newValue: Int) {
         
     }
     
