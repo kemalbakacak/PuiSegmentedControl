@@ -11,8 +11,8 @@ import UIKit
 
 public protocol PuiSegmentedControlDelegate: NSObjectProtocol {
     
-    func segmentedControlTransationBegin(oldValue: Int, newValue: Int)
-    func segmentedControlTransationEnded(oldValue: Int, newValue: Int)
+    func segmentedControlTransitionBegin(oldValue: Int, newValue: Int)
+    func segmentedControlTransitionEnded(oldValue: Int, newValue: Int)
     
 }
 
@@ -48,8 +48,10 @@ open class PuiSegmentedControl: UIControl {
     
     // MARK: - Public Properties
     
-    // The value of the animation tab when isAnimatedTabTransation property is true
-    @objc dynamic open var animatedTabTransationDuration: TimeInterval = 1
+    // The value of the animation duration when isAnimatedTabTransition property is true
+    @objc dynamic open var animatedTabTransitionDuration: TimeInterval = 1
+    // The value of the redraw view difference from transition duration when isAnimatedTabTransition property is true
+    @objc dynamic open var animatedTabTransitionRedrawDifferenceDuration: TimeInterval = 0
     // The radius of the background.
     @objc dynamic open var backgroundCornerRadius: CGFloat = 0
     // The color of the background.
@@ -78,6 +80,7 @@ open class PuiSegmentedControl: UIControl {
             if self.isConfiguredView
                 && !self.isDraggingSelectedView
                 && oldValue != self.selectedIndex {
+                self.configureViewAfterTransition(oldIndex: oldValue, newIndex: self.selectedIndex)
                 self.changeSegment(oldValue: oldValue, newValue: self.selectedIndex)
             }
         }
@@ -92,8 +95,8 @@ open class PuiSegmentedControl: UIControl {
     @objc dynamic open var seperatorMarginBottom: CGFloat = 0
     // The offset of the seperator's from top.
     @objc dynamic open var seperatorMarginTop: CGFloat = 0
-    // If the property is true, tab transation will be animated.
-    @objc dynamic open var isAnimatedTabTransation: Bool = false
+    // If the property is true, tab transition will be animated.
+    @objc dynamic open var isAnimatedTabTransition: Bool = false
     // If the property is true, selected segment's will be rounded.
     @objc dynamic open var isSelectViewAllCornerRadius: Bool = false
     // If the property is true, segments divided equals. Otherwise, segment's divided according to text length.
@@ -164,6 +167,7 @@ open class PuiSegmentedControl: UIControl {
         }
         
         // Update segment's view frame
+        self.configureViewAfterTransition(oldIndex: self.selectedIndex, newIndex: self.selectedIndex)
         self.changeSegment(oldValue: self.selectedIndex, newValue: self.selectedIndex)
     }
     
@@ -392,18 +396,12 @@ open class PuiSegmentedControl: UIControl {
         // Setup corners
         self.changeSelectedViewCornerRadius(index: self.selectedIndex)
         
-        // Change attributes
-        self.labels[oldValue].isSelected = false
-        self.labels[newValue].isSelected = true
-        
-        self.changeSeperatorVisibility()
-        
         // Set animated
         self.isDraggingSelectedView = false
         self.isAnimatingSelectedView = false
         
-        // Call end transaction method
-        self.segmentedControlTransationEnded(oldValue: oldValue, newValue: newValue)
+        // Call end transiction method
+        self.segmentedControlTransitionEnded(oldValue: oldValue, newValue: newValue)
         
         // Send action
         self.sendActions(for: .valueChanged)
@@ -418,12 +416,16 @@ open class PuiSegmentedControl: UIControl {
         // Set animated
         self.isDraggingSelectedView = true
         
-        // Call begin transaction method
-        self.segmentedControlTransationBegin(oldValue: oldValue, newValue: newValue)
+        // Call begin transition method
+        self.segmentedControlTransitionBegin(oldValue: oldValue, newValue: newValue)
         
-        // Check is animated tab transation
-        if self.isAnimatedTabTransation {
-            UIView.animate(withDuration: self.animatedTabTransationDuration,
+        // Check is animated tab transition
+        if self.isAnimatedTabTransition {
+            let difference = self.animatedTabTransitionDuration - self.animatedTabTransitionRedrawDifferenceDuration
+            DispatchQueue.main.asyncAfter(deadline: .now() + (difference)) { [weak self] in
+                self?.configureViewAfterTransition(oldIndex: oldValue, newIndex: newValue)
+            }
+            UIView.animate(withDuration: self.animatedTabTransitionDuration,
                            animations: { [weak self] in
                             guard let self = self else { return }
                             self.isAnimatingSelectedView = true
@@ -443,6 +445,7 @@ open class PuiSegmentedControl: UIControl {
             }
         } else {
             self.isAnimatingSelectedView = true
+            self.configureViewAfterTransition(oldIndex: oldValue, newIndex: newValue)
             self.viewTappedSegmentChangeEnded(oldValue: oldValue, newValue: newValue)
         }
     }
@@ -468,7 +471,7 @@ open class PuiSegmentedControl: UIControl {
     }
     
     // Configure seperator visibility according to selected index
-    private func changeSeperatorVisibility() {
+    private func changeSeperatorVisibility(index: Int) {
         // Check status for seperator
         if !self.isSeperatorActive {
             return
@@ -478,14 +481,24 @@ open class PuiSegmentedControl: UIControl {
         self.seperatorViews.forEach { (seperator) in
             seperator.isHidden = false
         }
-        if self.selectedIndex == 0 {
+        if index == 0 {
             self.seperatorViews[0].isHidden = true
         } else if self.selectedIndex == self.items.count - 1 {
             self.seperatorViews[self.seperatorViews.count - 1].isHidden = true
         } else {
-            self.seperatorViews[self.selectedIndex - 1].isHidden = true
-            self.seperatorViews[self.selectedIndex].isHidden = true
+            self.seperatorViews[index - 1].isHidden = true
+            self.seperatorViews[index].isHidden = true
         }
+    }
+    
+    // If we changed destionation view frame after end of transition for page view, occured delay problem.
+    private func configureViewAfterTransition(oldIndex: Int, newIndex: Int) {
+        // Configure label
+        self.labels[oldIndex].isSelected = false
+        self.labels[newIndex].isSelected = true
+        
+        // Configure seperator
+        self.changeSeperatorVisibility(index: newIndex)
     }
     
     // MARK: - Touch Tracking
@@ -588,25 +601,41 @@ open class PuiSegmentedControl: UIControl {
         }
     }
     
+    // When user end of dragging from page view, this method is called.
+    public func scrollViewEndDragging() {
+        self.configureViewAfterTransition(oldIndex: self.selectedIndex, newIndex: self.destinationIndex)
+    }
+    
     // When page view delegate triggered, this function configure to segmented control.
-    public func pageViewTransactionEnded(isCompleted: Bool) {
-        if isCompleted {
-            self.changeSegment(oldValue: self.selectedIndex, newValue: self.destinationIndex)
-        } else {
-            self.isDraggingSelectedView = false
+    public func pageViewTransitionEnded(isCompleted: Bool) {
+        
+        if isCompleted && self.selectedViews.count > 0 {
+            // Find nearest index with selected view
+            var nearestIndex = self.destinationIndex
+            let minValue = abs(self.selectedView.frame.origin.x - self.selectedViews[self.destinationIndex].getMin())
+            for i in 0..<self.selectedViews.count {
+                let value = abs(self.selectedView.frame.origin.x - self.selectedViews[i].getMin())
+                if value < minValue {
+                    nearestIndex = i
+                }
+            }
+            
+            // Change segment
+            self.configureViewAfterTransition(oldIndex: self.destinationIndex, newIndex: nearestIndex)
+            self.changeSegment(oldValue: self.selectedIndex, newValue: nearestIndex)
         }
     }
     
     // Call function, if subclass is page view segmented control.
-    // Then, developer configured view when transaction beginned.
-    open func segmentedControlTransationBegin(oldValue: Int, newValue: Int) {
-        self.delegate?.segmentedControlTransationBegin(oldValue: oldValue, newValue: newValue)
+    // Then, developer configured view when transiction beginned.
+    open func segmentedControlTransitionBegin(oldValue: Int, newValue: Int) {
+        self.delegate?.segmentedControlTransitionBegin(oldValue: oldValue, newValue: newValue)
     }
     
     // Call deelgate function, if subclass is page view segmented control.
-    // Then, developer configured view when transaction ended.
-    open func segmentedControlTransationEnded(oldValue: Int, newValue: Int) {
-        self.delegate?.segmentedControlTransationEnded(oldValue: oldValue, newValue: newValue)
+    // Then, developer configured view when transition ended.
+    open func segmentedControlTransitionEnded(oldValue: Int, newValue: Int) {
+        self.delegate?.segmentedControlTransitionEnded(oldValue: oldValue, newValue: newValue)
     }
 }
 
