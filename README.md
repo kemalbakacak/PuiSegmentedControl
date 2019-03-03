@@ -20,7 +20,7 @@ pod 'PuiSegmentedControl'
 To integrate PuiSegmentedControl into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```bash
-github "kbakacak/PuiSegmentedControl" ~> 1.1.0
+github "kbakacak/PuiSegmentedControl" ~> 1.3.0
 ```
 
 Run `carthage update` to build the framework and drag the built `PuiSegmentedControl.framework` into your Xcode project.
@@ -34,7 +34,8 @@ Run `carthage update` to build the framework and drag the built `PuiSegmentedCon
 Variables that you can use:
 
 ```swift
-open var animatedTabTransationDuration: TimeInterval = 1 // The value of the animation tab when isAnimatedTabTransation property is true
+open var animatedTabTransitionDuration: TimeInterval = 1 // The value of the animation tab when isAnimatedTabTransition property is true
+@objc dynamic open var animatedTabTransitionRedrawDifferenceDuration: TimeInterval = 0 // The value of the redraw view difference from transition duration when isAnimatedTabTransition property is true
 open var backgroundCornerRadius: CGFloat = 0 // The radius of the background.
 open var backgroundCustomColor: UIColor = .clear // The color of the background.
 open var borderCornerRadius: CGFloat = 0 // The radius of the control's border.
@@ -52,7 +53,7 @@ open var seperatorCornerRadius: CGFloat = 2 // The radius of the seperator's.
 open var seperatorWidth: CGFloat = 4 // The size of the width seperator's
 open var seperatorMarginBottom: CGFloat = 0 // The offset of the seperator's from bottom.
 open var seperatorMarginTop: CGFloat = 0 // The offset of the seperator's from top.
-open var isAnimatedTabTransation: Bool = false // If the property is true, tab transation will be animated.
+open var isAnimatedTabTransition: Bool = false // If the property is true, tab transition will be animated.
 open var isSelectViewAllCornerRadius: Bool = false // If the property is true, selected segment's will be rounded.
 open var isEqualWidth: Bool = true // If the property is true, segments divided equals. Otherwise, segment's divided according to text length.
 open var isSeperatorActive: Bool = true // If the property is true, seperator will show.
