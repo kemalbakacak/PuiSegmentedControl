@@ -8,19 +8,12 @@
 
 import Foundation
 
-public protocol PuiScrollViewSegmentedControlDelegate: NSObjectProtocol {
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                   withVelocity velocity: CGPoint,
-                                   targetContentOffset: UnsafeMutablePointer<CGPoint>)
-    
-}
-
 open class PuiPageViewSegmentedControl: PuiSegmentedControl {
+	
+	// MARK: Delegate
+	
+	private var pageViewOriginalDelegate: UIPageViewControllerDelegate?
+	private var scrollViewOriginalDelegate: UIScrollViewDelegate?
     
     // MARK: - Public Properties
     
@@ -38,7 +31,6 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
             }
         }
     }
-    public weak var scrollViewDelegate: PuiScrollViewSegmentedControlDelegate?
     
     // MARK: - Private Properties
     
@@ -66,22 +58,66 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
 }
 
 extension PuiPageViewSegmentedControl: UIPageViewControllerDelegate {
-    public func pageViewController(_ pageViewController: UIPageViewController,
-                                   didFinishAnimating finished: Bool,
-                                   previousViewControllers: [UIViewController],
-                                   transitionCompleted completed: Bool) {
-        // Call super method
-        self.pageViewTransitionEnded(isCompleted: completed)
-        self.isEndedPageViewTransition = true
-    }
+
+	@objc public func pageViewController(_ pageViewController: UIPageViewController,
+								  willTransitionTo pendingViewControllers: [UIViewController]) {
+		if self.pageViewOriginalDelegate?.responds(to: #selector(pageViewController(_:willTransitionTo:))) ?? false {
+			self.pageViewOriginalDelegate?.pageViewController?(pageViewController,
+															   willTransitionTo: pendingViewControllers)
+		}
+	}
+	
+	@objc public func pageViewController(_ pageViewController: UIPageViewController,
+								  didFinishAnimating finished: Bool,
+								  previousViewControllers: [UIViewController],
+								  transitionCompleted completed: Bool) {
+		if self.pageViewOriginalDelegate?.responds(to: #selector(pageViewController(_:didFinishAnimating:previousViewControllers:transitionCompleted:))) ?? false {
+			self.pageViewOriginalDelegate?.pageViewController?(pageViewController,
+															   didFinishAnimating: finished,
+															   previousViewControllers: previousViewControllers,
+															   transitionCompleted: completed)
+		}
+		
+		// Call super method
+		self.pageViewTransitionEnded(isCompleted: completed)
+		self.isEndedPageViewTransition = true
+	}
+	
+	@objc public func pageViewController(_ pageViewController: UIPageViewController,
+								  spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
+		if self.pageViewOriginalDelegate?.responds(to: #selector(pageViewController(_:spineLocationFor:))) ?? false {
+			return (self.pageViewOriginalDelegate?.pageViewController?(pageViewController, spineLocationFor: orientation))!
+		}
+		
+		return .none
+	}
+	
+	@available(iOS 7.0, *)
+	@objc public func pageViewControllerSupportedInterfaceOrientations(_ pageViewController: UIPageViewController) -> UIInterfaceOrientationMask {
+		if self.pageViewOriginalDelegate?.responds(to: #selector(pageViewControllerSupportedInterfaceOrientations(_:))) ?? false {
+			return (self.pageViewOriginalDelegate?.pageViewControllerSupportedInterfaceOrientations?(pageViewController))!
+		}
+		
+		return UIInterfaceOrientationMask.portrait
+	}
+	
+	@available(iOS 7.0, *)
+	@objc public func pageViewControllerPreferredInterfaceOrientationForPresentation(_ pageViewController: UIPageViewController) -> UIInterfaceOrientation {
+		if self.pageViewOriginalDelegate?.responds(to: #selector(pageViewControllerPreferredInterfaceOrientationForPresentation(_:))) ?? false {
+			return (self.pageViewOriginalDelegate?.pageViewControllerPreferredInterfaceOrientationForPresentation?(pageViewController))!
+		}
+		
+		return UIInterfaceOrientation.portrait
+	}
     
 }
 
 extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        // Call scrollview delegate
-        self.scrollViewDelegate?.scrollViewWillBeginDragging(scrollView)
+    @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		if self.scrollViewOriginalDelegate?.responds(to: #selector(scrollViewWillBeginDragging(_:))) ?? false {
+			self.scrollViewOriginalDelegate?.scrollViewWillBeginDragging?(scrollView)
+		}
         
         // Set initial position
         if self.isEndedPageViewTransition {
@@ -90,9 +126,10 @@ extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
         }
     }
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Call scrollview delegate
-        self.scrollViewDelegate?.scrollViewDidScroll(scrollView)
+    @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		if self.scrollViewOriginalDelegate?.responds(to: #selector(scrollViewDidScroll(_:))) ?? false {
+			self.scrollViewOriginalDelegate?.scrollViewDidScroll?(scrollView)
+		}
         
         // Check content offset
         if self.initialScrollViewPosition == scrollView.contentOffset.x {
@@ -107,23 +144,27 @@ extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
         self.scrollSegmentedControl(ratio: self.ratio!)
     }
     
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // Call scrollview delegate
-        self.scrollViewDelegate?.scrollViewDidEndDecelerating(scrollView)
+    @objc public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		if self.scrollViewOriginalDelegate?.responds(to: #selector(scrollViewDidEndDecelerating(_:))) ?? false {
+			self.scrollViewOriginalDelegate?.scrollViewDidEndDecelerating?(scrollView)
+		}
     }
     
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        // Call scrollview delegate
-        self.scrollViewDelegate?.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+    @objc public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+		if self.scrollViewOriginalDelegate?.responds(to: #selector(scrollViewDidEndDragging(_:willDecelerate:))) ?? false {
+			self.scrollViewOriginalDelegate?.scrollViewDidEndDragging?(scrollView,
+																	   willDecelerate: decelerate)
+		}
     }
     
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+    @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                           withVelocity velocity: CGPoint,
                                           targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // Call scrollview delegate
-        self.scrollViewDelegate?.scrollViewWillEndDragging(scrollView,
-                                                           withVelocity: velocity,
-                                                           targetContentOffset: targetContentOffset)
+		if self.scrollViewOriginalDelegate?.responds(to: #selector(scrollViewWillEndDragging(_:withVelocity:targetContentOffset:))) ?? false {
+			self.scrollViewOriginalDelegate?.scrollViewWillEndDragging?(scrollView,
+																		withVelocity: velocity,
+																		targetContentOffset: targetContentOffset)
+		}
         
         // Detect bounce effect and return
         if (self.selectedIndex == 0 && scrollView.contentOffset.x <= scrollView.bounds.size.width) ||
