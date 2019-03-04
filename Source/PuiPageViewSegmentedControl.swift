@@ -22,12 +22,19 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
     
     public weak var pageViewController: UIPageViewController? {
         didSet {
+			
+			// Set page view delegate
+			self.pageViewOriginalDelegate = self.pageViewController?.delegate
             self.pageViewController?.delegate = self
             
             // Find scroll view
             for subview in self.pageViewController?.view.subviews ?? [] {
                 if let scrollView = subview as? UIScrollView {
+					// Set scroll view delegate
+					self.scrollViewOriginalDelegate = scrollView.delegate
                     scrollView.delegate = self
+					
+					// Keep scrollview
                     self.scrollView = scrollView
                     break
                 }
