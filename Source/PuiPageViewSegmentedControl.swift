@@ -16,6 +16,9 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
 	private var scrollViewOriginalDelegate: UIScrollViewDelegate?
     
     // MARK: - Public Properties
+	
+	// Dragging next page threshold
+	@objc dynamic open var pageViewMinimumThresholdValue: CGFloat = 0.3
     
     public weak var pageViewController: UIPageViewController? {
         didSet {
@@ -174,7 +177,7 @@ extension PuiPageViewSegmentedControl: UIScrollViewDelegate {
         
         // Call end dragging method because configure view according to destionation index
         // If ratio more then 0.5, we will move to destination index. 0.5 means 50%
-        if self.ratio != nil && (abs(self.ratio!) > 0.5 || abs(velocity.x) > 0.3) {
+        if self.ratio != nil && (abs(self.ratio!) > 0.5 || abs(velocity.x) > self.pageViewMinimumThresholdValue ) {
             self.scrollViewEndDragging()
         }
         
