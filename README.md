@@ -35,7 +35,7 @@ Variables that you can use:
 
 ```swift
 open var animatedTabTransitionDuration: TimeInterval = 1 // The value of the animation tab when isAnimatedTabTransition property is true
-@objc dynamic open var animatedTabTransitionRedrawDifferenceDuration: TimeInterval = 0 // The value of the redraw view difference from transition duration when isAnimatedTabTransition property is true
+open var animatedTabTransitionRedrawDifferenceDuration: TimeInterval = 0 // The value of the redraw view difference from transition duration when isAnimatedTabTransition property is true
 open var backgroundCornerRadius: CGFloat = 0 // The radius of the background.
 open var backgroundCustomColor: UIColor = .clear // The color of the background.
 open var borderCornerRadius: CGFloat = 0 // The radius of the control's border.
