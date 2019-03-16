@@ -12,8 +12,8 @@ open class PuiPageViewSegmentedControl: PuiSegmentedControl {
 	
 	// MARK: Delegate
 	
-	private var pageViewOriginalDelegate: UIPageViewControllerDelegate?
-	private var scrollViewOriginalDelegate: UIScrollViewDelegate?
+	private weak var pageViewOriginalDelegate: UIPageViewControllerDelegate?
+	private weak var scrollViewOriginalDelegate: UIScrollViewDelegate?
     
     // MARK: - Public Properties
 	
