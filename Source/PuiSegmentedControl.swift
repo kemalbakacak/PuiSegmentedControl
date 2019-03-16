@@ -496,8 +496,9 @@ open class PuiSegmentedControl: UIControl {
     // If we changed destionation view frame after end of transition for page view, occured delay problem.
     private func configureViewAfterTransition(oldIndex: Int, newIndex: Int) {
         // Configure label
-        self.labels[oldIndex].isSelected = false
-        self.labels[newIndex].isSelected = true
+        for i in 0..<self.labels.count {
+            self.labels[i].isSelected = (i == newIndex)
+        }
         
         // Configure seperator
         self.changeSeperatorVisibility(index: newIndex)
@@ -610,22 +611,32 @@ open class PuiSegmentedControl: UIControl {
     
     // When page view delegate triggered, this function configure to segmented control.
     public func pageViewTransitionEnded(isCompleted: Bool) {
-        
-        if isCompleted && self.selectedViews.count > 0 {
-            // Find nearest index with selected view
-            var nearestIndex = self.destinationIndex
-            let minValue = abs(self.selectedView.frame.origin.x - self.selectedViews[self.destinationIndex].getMin())
-            for i in 0..<self.selectedViews.count {
-                let value = abs(self.selectedView.frame.origin.x - self.selectedViews[i].getMin())
-                if value < minValue {
-                    nearestIndex = i
-                }
-            }
+        if self.selectedViews.count > 0 {
+            let nearestIndex = self.getNearestIndex()
             
             // Change segment
-            self.configureViewAfterTransition(oldIndex: self.destinationIndex, newIndex: nearestIndex)
-            self.changeSegment(oldValue: self.selectedIndex, newValue: nearestIndex)
+            self.configureViewAfterTransition(oldIndex: self.selectedIndex, newIndex: nearestIndex)
+            
+            if isCompleted {
+                self.changeSegment(oldValue: self.selectedIndex, newValue: nearestIndex)
+            }
+            
+            self.isDraggingSelectedView = false
         }
+    }
+    
+    // Find nearest index with selected view
+    private func getNearestIndex() -> Int {
+        var nearestIndex = self.destinationIndex
+        let minValue = abs(self.selectedView.frame.origin.x - self.selectedViews[nearestIndex].getMin())
+        for i in 0..<self.selectedViews.count {
+            let value = abs(self.selectedView.frame.origin.x - self.selectedViews[i].getMin())
+            if value < minValue {
+                nearestIndex = i
+            }
+        }
+        
+        return nearestIndex
     }
     
     // Call function, if subclass is page view segmented control.
