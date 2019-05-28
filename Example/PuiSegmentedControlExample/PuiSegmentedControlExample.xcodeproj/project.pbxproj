@@ -12,10 +12,11 @@
 		1D89D3DD217A79020099F68F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3DB217A79020099F68F /* Main.storyboard */; };
 		1D89D3DF217A79040099F68F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3DE217A79040099F68F /* Assets.xcassets */; };
 		1D89D3E2217A79040099F68F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D89D3E0217A79040099F68F /* LaunchScreen.storyboard */; };
-		1D89D3F5217A7A900099F68F /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */; };
 		1DE89E4021D2B080008CD580 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE89E3F21D2B080008CD580 /* PageViewController.swift */; };
 		1DE89E4421D2B114008CD580 /* PageViewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE89E4321D2B114008CD580 /* PageViewItemController.swift */; };
 		1DEEE04A21B996EB0054D176 /* CustomPuiSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE04921B996EB0054D176 /* CustomPuiSegmentedControl.swift */; };
+		D6EA940E229D5BB300CC8EB9 /* PuiSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */; };
+		D6EA940F229D5BB300CC8EB9 /* PuiSegmentedControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D89D3F1217A7A5D0099F68F /* PuiSegmentedControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +34,28 @@
 			remoteGlobalIDString = 1DDCB819217A713C00FAF796;
 			remoteInfo = PuiSegmentedControlTests;
 		};
+		D6EA9410229D5BB300CC8EB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D89D3EB217A7A5D0099F68F /* PuiSegmentedControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DDCB80F217A713C00FAF796;
+			remoteInfo = PuiSegmentedControl;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D6EA9412229D5BB300CC8EB9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D6EA940F229D5BB300CC8EB9 /* PuiSegmentedControl.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D89D3D4217A79020099F68F /* PuiSegmentedControlExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuiSegmentedControlExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D89D3F5217A7A900099F68F /* PuiSegmentedControl.framework in Frameworks */,
+				D6EA940E229D5BB300CC8EB9 /* PuiSegmentedControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,10 +183,12 @@
 				1D89D3D0217A79020099F68F /* Sources */,
 				1D89D3D1217A79020099F68F /* Frameworks */,
 				1D89D3D2217A79020099F68F /* Resources */,
+				D6EA9412229D5BB300CC8EB9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D6EA9411229D5BB300CC8EB9 /* PBXTargetDependency */,
 			);
 			name = PuiSegmentedControlExample;
 			productName = PuiSegmentedControlExample;
@@ -254,6 +278,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6EA9411229D5BB300CC8EB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PuiSegmentedControl;
+			targetProxy = D6EA9410229D5BB300CC8EB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1D89D3DB217A79020099F68F /* Main.storyboard */ = {
@@ -394,9 +426,9 @@
 		1D89D3E7217A79040099F68F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -404,7 +436,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.KemalBakacak.PuiSegmentedControlExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -413,9 +444,9 @@
 		1D89D3E8217A79040099F68F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Source/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,7 +454,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.KemalBakacak.PuiSegmentedControlExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
