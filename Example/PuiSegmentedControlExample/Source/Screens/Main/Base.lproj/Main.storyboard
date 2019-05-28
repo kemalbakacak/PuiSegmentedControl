@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zc3-Hc-mUu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zc3-Hc-mUu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,7 +71,7 @@
                                         <color key="backgroundColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Go to UIPageViewController"/>
                                         <connections>
-                                            <segue destination="7xy-at-lyn" kind="show" id="m22-DK-Zot"/>
+                                            <segue destination="YfV-J1-P3u" kind="show" id="bnm-EY-1Nh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -100,12 +100,45 @@
             <point key="canvasLocation" x="1103.2" y="133.5832083958021"/>
         </scene>
         <!--Page View Controller-->
-        <scene sceneID="DSg-Ur-IsR">
+        <scene sceneID="X0Y-e0-rUi">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7xy-at-lyn" customClass="PageViewController" customModule="PuiSegmentedControlExample" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5O-Aq-E7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="YfV-J1-P3u" customClass="PageViewController" customModule="PuiSegmentedControlExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1s5-D9-4tA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ryz-EI-pqR" customClass="PuiSegmentedControl" customModule="PuiSegmentedControl">
+                                <rect key="frame" x="16" y="80" width="343" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oYm-Ze-Ei1"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="je7-em-P4y" customClass="PuiPageViewSegmentedControl" customModule="PuiSegmentedControl">
+                                <rect key="frame" x="0.0" y="146" width="375" height="521"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ryz-EI-pqR" firstAttribute="leading" secondItem="2cE-Z9-Twa" secondAttribute="leading" constant="16" id="859-6v-bYt"/>
+                            <constraint firstItem="Ryz-EI-pqR" firstAttribute="top" secondItem="2cE-Z9-Twa" secondAttribute="top" constant="16" id="8FE-mz-EbD"/>
+                            <constraint firstItem="2cE-Z9-Twa" firstAttribute="trailing" secondItem="je7-em-P4y" secondAttribute="trailing" id="A2Z-Ky-KGF"/>
+                            <constraint firstItem="2cE-Z9-Twa" firstAttribute="bottom" secondItem="je7-em-P4y" secondAttribute="bottom" id="cHi-Mn-s2H"/>
+                            <constraint firstItem="je7-em-P4y" firstAttribute="leading" secondItem="2cE-Z9-Twa" secondAttribute="leading" id="gCd-Dr-56M"/>
+                            <constraint firstItem="2cE-Z9-Twa" firstAttribute="trailing" secondItem="Ryz-EI-pqR" secondAttribute="trailing" constant="16" id="igi-R6-0xE"/>
+                            <constraint firstItem="je7-em-P4y" firstAttribute="top" secondItem="Ryz-EI-pqR" secondAttribute="bottom" constant="16" id="jnO-w7-qyV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2cE-Z9-Twa"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageView" destination="je7-em-P4y" id="Uap-9q-IlY"/>
+                        <outlet property="segmentedControl" destination="Ryz-EI-pqR" id="AFE-Bg-ES6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zsr-j7-R03" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1951.2" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2009" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="t9p-b3-QN6">
