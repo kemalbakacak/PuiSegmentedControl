@@ -37,6 +37,8 @@ class PageViewController: UIViewController {
         self.segmentedControl.seperatorMarginBottom = 3
         self.segmentedControl.isSelectViewAllCornerRadius = true
         self.segmentedControl.isSeperatorActive = false
+		self.segmentedControl.isAnimatedTabTransition = true
+		self.segmentedControl.animatedTabTransitionDuration = 0.35
         self.segmentedControl.items = ["Tab 1", "Tab 2", "Tab 3"]
         self.segmentedControl.selectedIndex = 1
         

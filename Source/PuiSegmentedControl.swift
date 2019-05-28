@@ -356,7 +356,7 @@ open class PuiSegmentedControl: UIControl {
 		seperatorView.frame = CGRect(x: self.labels[index].frame.maxX - (self.seperatorWidth/2),
 									 y: self.seperatorMarginTop,
 									 width: self.seperatorWidth,
-									 height: self.bounds.height - seperatorMarginTop - seperatorMarginBottom)
+									 height: self.bounds.height - self.seperatorMarginTop - self.seperatorMarginBottom)
 	}
 	
 	// MARK: - Changed Segment Actions.
