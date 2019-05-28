@@ -6,6 +6,7 @@ PuiSegmentedControl is a customizable for segmented control.
 - Styling border, background, seperator etc.
 - Animated segment change (Not working with different corner radius).
 - Supported scroll when scrolling UIPageViewController (Same as above matter).
+- Supported custom page view with PuiPageViewSegmentedControl.
 - Written with Swift :)
 
 ## Installation
@@ -20,7 +21,7 @@ pod 'PuiSegmentedControl'
 To integrate PuiSegmentedControl into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```bash
-github "kbakacak/PuiSegmentedControl" ~> 1.2.0
+github "kbakacak/PuiSegmentedControl" ~> 2.0.0
 ```
 
 Run `carthage update` to build the framework and drag the built `PuiSegmentedControl.framework` into your Xcode project.
@@ -60,9 +61,16 @@ open var isSeperatorActive: Bool = true // If the property is true, seperator wi
 open var items: [String] = [] // The titles of segments.
 ```
 
-### Usage with UIPageViewController
+### Usage with Page View
 
-If you want to use with UIPageViewController, you need to use ``PuiPageViewSegmentedControl`` and set ``pageViewController`` property for required delegate. You can example ``PageViewController`` in example project. ``PuiPageViewSegmentedControl``is subclass of ``PuiSegmentedControl`` so you can use same properties above.
+If you want to use with Page View, you need to use ``PuiPageViewSegmentedControl`` and set pages. You can example ``PageViewController`` in example project. If you want to working together with page view and segmented control then send segmented control property to page view configuration method. Threshold means selected segment change value with ratio that 0.8 means 80 percent.
+
+```swift
+self.pageView.configure(pages: self.pages,
+						selectedIndex: 1,
+						segmentedControl: self.segmentedControl,
+						nextViewSelectionThreshold: 0.8)
+```
 
 ![Screenshot](https://github.com/kbakacak/PuiSegmentedControl/blob/develop/DemoScreenshot.png)
 
