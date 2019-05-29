@@ -51,11 +51,7 @@ open class PuiPageViewSegmentedControl: UIView {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		
-		// Update pages size
-		for page in self.pages where page.view.superview != nil {
-			page.view.frame.size = self.bounds.size
-		}
+		self.updateContainerView()
 	}
 	
 	public func configure(pages: [UIViewController],
@@ -79,10 +75,21 @@ open class PuiPageViewSegmentedControl: UIView {
 		self.containerView.bounces = true
 		self.containerView.alwaysBounceHorizontal = true
 		self.containerView.alwaysBounceVertical = false
+		self.containerView.showsHorizontalScrollIndicator = false
+		self.containerView.showsVerticalScrollIndicator = false
 		self.containerView.isPagingEnabled = true
 		self.containerView.delegate = self
 		self.containerView.scrollsToTop = false
 		self.addSubview(self.containerView)
+		
+		self.updateContainerView()
+		
+		// Add default view controller
+		self.addViewController(at: self.currentIndex)
+	}
+	
+	private func updateContainerView() {
+		self.containerView.frame.size = self.bounds.size
 		
 		// Calculate content offset according to current index
 		self.containerView.contentOffset = CGPoint(x: self.bounds.size.width * CGFloat(self.currentIndex), y: 0)
@@ -91,8 +98,11 @@ open class PuiPageViewSegmentedControl: UIView {
 		self.containerView.contentSize = CGSize(width: self.bounds.size.width * CGFloat(self.pages.count),
 												height: self.bounds.size.height)
 		
-		// Add default view controller
-		self.addViewController(at: self.currentIndex)
+		// Update pages size
+		for index in 0..<self.pages.count where self.pages[index].view.superview != nil {
+			self.pages[index].view.frame.size = self.bounds.size
+			self.pages[index].view.frame.origin.x = self.getPosition(at: index)
+		}
 	}
 	
 	private func updateContent() {
