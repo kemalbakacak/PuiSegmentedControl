@@ -261,6 +261,9 @@ extension PuiPageViewSegmentedControl: PuiSegmentedControlDelegate {
 			self.segmentedControlOriginalDelegate?.segmentedControlTransitionEnded(oldValue: oldValue, newValue: newValue)
 		}
 		
+		// Update current index to new value
+		self.currentIndex = newValue
+		
 		// Animation check
 		self.isAnimatingView = false
 		self.containerView.isUserInteractionEnabled = true
