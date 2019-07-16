@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/kbakacak/PuiSegmentedControl'
   s.authors = { 'Kemal Bakacak' => 'hi@kemalbakacak.com' }
   s.source = { :git => 'https://github.com/kbakacak/PuiSegmentedControl.git', :tag => s.version }
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.ios.deployment_target = '9.0'
 
