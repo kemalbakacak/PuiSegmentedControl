@@ -70,6 +70,8 @@ open class PuiSegmentedControl: UIControl {
 	@objc dynamic open var unselectedTextAttributes: [NSAttributedString.Key: Any]?
 	// The color of the selected view background color.
 	@objc dynamic open var selectedViewBackgroundColor: UIColor = .purple
+    // The corner radius of selected view.
+    @objc dynamic open var selectedViewCornerRadius: CGFloat = .zero
 	// The offset of the selected view from all around.
 	@objc dynamic open var selectedViewMargins: UIEdgeInsets = .zero
 	// The attributes of the selected segment's title
@@ -365,6 +367,12 @@ open class PuiSegmentedControl: UIControl {
 	private func changeSelectedViewCornerRadius(index: Int) {
 		// Set zero
 		self.selectedView.layer.cornerRadius = 0
+        
+        // If developer want to custom corner radius, then we need to set and return
+        if self.selectedViewCornerRadius != .zero {
+            self.selectedView.layer.cornerRadius = self.selectedViewCornerRadius
+            return
+        }
 		
 		// Calculate difference
 		let calculatedCornerRadius = self.borderCornerRadius -
