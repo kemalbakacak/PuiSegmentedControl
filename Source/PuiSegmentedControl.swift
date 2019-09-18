@@ -146,17 +146,25 @@ open class PuiSegmentedControl: UIControl {
 			// Then do nothing
 			return
 		}
+        
+        // Update calculated width
+        self.configureViewWidth()
 		
 		// Configure segmented control
 		if self.isConfiguredView {
+            // Update view frame according to current bounds
+            // This logic added for device orientation
+            for (index, item) in self.labels.enumerated() {
+                self.configureLabelFrame(index: index, label: item)
+            }
+            self.configureSelectedViewFrame()
+            self.changeSelectedViewCornerRadius(index: self.selectedIndex)
+            
 			return
 		} else {
 			self.configure()
 			self.isConfiguredView = true
 		}
-		
-		// Update calculated width
-		self.configureViewWidth()
 		
 		// Update label's and seperator's view frame
 		for i in 0..<self.items.count {
@@ -468,6 +476,7 @@ open class PuiSegmentedControl: UIControl {
 						   width: self.selectedViews[self.selectedIndex].width,
 						   height: self.bounds.height)
 		self.selectedView.frame = self.applyMargin(rect: frame, to: self.selectedViewMargins)
+        self.selectedView.layoutIfNeeded()
 		
 		// Remove animation
 		self.selectedView.layer.removeAllAnimations()
