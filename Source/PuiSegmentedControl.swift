@@ -70,6 +70,8 @@ open class PuiSegmentedControl: UIControl {
 	@objc dynamic open var unselectedTextAttributes: [NSAttributedString.Key: Any]?
 	// The color of the selected view background color.
 	@objc dynamic open var selectedViewBackgroundColor: UIColor = .purple
+    // The corner radius of selected view.
+    @objc dynamic open var selectedViewCornerRadius: CGFloat = .zero
 	// The offset of the selected view from all around.
 	@objc dynamic open var selectedViewMargins: UIEdgeInsets = .zero
 	// The attributes of the selected segment's title
@@ -144,17 +146,25 @@ open class PuiSegmentedControl: UIControl {
 			// Then do nothing
 			return
 		}
+        
+        // Update calculated width
+        self.configureViewWidth()
 		
 		// Configure segmented control
 		if self.isConfiguredView {
+            // Update view frame according to current bounds
+            // This logic added for device orientation
+            for (index, item) in self.labels.enumerated() {
+                self.configureLabelFrame(index: index, label: item)
+            }
+            self.configureSelectedViewFrame()
+            self.changeSelectedViewCornerRadius(index: self.selectedIndex)
+            
 			return
 		} else {
 			self.configure()
 			self.isConfiguredView = true
 		}
-		
-		// Update calculated width
-		self.configureViewWidth()
 		
 		// Update label's and seperator's view frame
 		for i in 0..<self.items.count {
@@ -365,6 +375,12 @@ open class PuiSegmentedControl: UIControl {
 	private func changeSelectedViewCornerRadius(index: Int) {
 		// Set zero
 		self.selectedView.layer.cornerRadius = 0
+        
+        // If developer want to custom corner radius, then we need to set and return
+        if self.selectedViewCornerRadius != .zero {
+            self.selectedView.layer.cornerRadius = self.selectedViewCornerRadius
+            return
+        }
 		
 		// Calculate difference
 		let calculatedCornerRadius = self.borderCornerRadius -
@@ -460,6 +476,7 @@ open class PuiSegmentedControl: UIControl {
 						   width: self.selectedViews[self.selectedIndex].width,
 						   height: self.bounds.height)
 		self.selectedView.frame = self.applyMargin(rect: frame, to: self.selectedViewMargins)
+        self.selectedView.layoutIfNeeded()
 		
 		// Remove animation
 		self.selectedView.layer.removeAllAnimations()

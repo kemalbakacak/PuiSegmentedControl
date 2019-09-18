@@ -46,6 +46,7 @@ open var unselectedViewBackgroundColor: UIColor = .white // The color of the bac
 open var unselectedViewMargins: UIEdgeInsets = .zero // The offset of the background from all around.
 open var unselectedTextAttributes: [NSAttributedString.Key: Any]? // The attributes of the segment's title
 open var selectedViewBackgroundColor: UIColor = .purple // The color of the selected view background color.
+open var selectedViewCornerRadius: CGFloat = .zero // The corner radius of selected view.
 open var selectedViewMargins: UIEdgeInsets = .zero // The offset of the selected view from all around.
 open var selectedTextAttributes: [NSAttributedString.Key: Any] = [:] // The attributes of the selected segment's title
 open var selectedIndex: Int = 0 // The index of the selected segment's.
@@ -67,9 +68,9 @@ If you want to use with Page View, you need to use ``PuiPageViewSegmentedControl
 
 ```swift
 self.pageView.configure(pages: self.pages,
-						selectedIndex: 1,
-						segmentedControl: self.segmentedControl,
-						nextViewSelectionThreshold: 0.8)
+			selectedIndex: 1,
+			segmentedControl: self.segmentedControl,
+			nextViewSelectionThreshold: 0.8)
 ```
 
 ![Screenshot](https://github.com/kbakacak/PuiSegmentedControl/blob/develop/DemoScreenshot.png)
