@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'PuiSegmentedControl'
-  s.version = '2.1.0'
+  s.version = '2.1.1'
   s.license = 'MIT'
   s.summary = 'PuiSegmentedControl is a customizable for segmented control'
   s.homepage = 'https://github.com/kbakacak/PuiSegmentedControl'
