@@ -21,7 +21,7 @@ pod 'PuiSegmentedControl'
 To integrate PuiSegmentedControl into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```bash
-github "kbakacak/PuiSegmentedControl" ~> 2.0.0
+github "kemalbakacak/PuiSegmentedControl" ~> 2.0.0
 ```
 
 Run `carthage update` to build the framework and drag the built `PuiSegmentedControl.framework` into your Xcode project.
@@ -73,7 +73,7 @@ self.pageView.configure(pages: self.pages,
 			nextViewSelectionThreshold: 0.8)
 ```
 
-![Screenshot](https://github.com/kbakacak/PuiSegmentedControl/blob/develop/DemoScreenshot.png)
+![Screenshot](https://github.com/kemalbakacak/PuiSegmentedControl/blob/develop/DemoScreenshot.png)
 
 ## License
-PuiSegmentedControl is released under the MIT license. [See LICENSE](https://github.com/kbakacak/PuiSegmentedControl/blob/master/LICENSE) for details.
+PuiSegmentedControl is released under the MIT license. [See LICENSE](https://github.com/kemalbakacak/PuiSegmentedControl/blob/master/LICENSE) for details.
