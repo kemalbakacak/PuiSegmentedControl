@@ -501,9 +501,11 @@ open class PuiSegmentedControl: UIControl {
 		} else if self.selectedIndex == self.items.count - 1 {
 			self.seperatorViews[self.seperatorViews.count - 1].isHidden = true
 		} else {
-			self.seperatorViews[index - 1].isHidden = true
-			if index < self.seperatorViews.count {
-				self.seperatorViews[index].isHidden = true
+			if self.items.count != 2 {
+				self.seperatorViews[index - 1].isHidden = true
+				if index < self.seperatorViews.count {
+					self.seperatorViews[index].isHidden = true
+				}
 			}
 		}
 	}
