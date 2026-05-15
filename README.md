@@ -10,6 +10,12 @@ PuiSegmentedControl is a customizable for segmented control.
 - Written with Swift :)
 
 ## Installation
+### Swift Package Manager
+
+- File > Swift Packages > Add Package Dependency
+- Add `https://github.com/kemalbakacak/PuiSegmentedControl.git`
+- Select "Up to Next Major" with "2.0.0"
+
 ### Cocoapods
 The easiest way of installing PuiSegmentedControl is via CocoaPods.
 
